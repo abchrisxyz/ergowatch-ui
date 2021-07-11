@@ -1,11 +1,12 @@
 .oracle-pool-wrapper {
   display: grid;
+  gap: 3em;
+  grid-template-columns: max-content max-content;
 }
 
 .commit-stats {
   display: grid;
   grid-template-columns: repeat(5, max-content);
-  margin-top: 16px;
   align-items: center;
   grid-column-gap: 1rem;
 }
@@ -29,13 +30,64 @@
 }
 
 .status.active {
-  color: rgb(74, 199, 109);
+  color: var(--active-color);
 }
 
 .status.idle {
-  color: orange;
+  color: var(--idle-color);
 }
 
 .status.offline {
-  color: #E14A3C;
+  /* color: #E14A3C; */
+  color: var(--offline-color);
 }
+
+.oracle-status {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: 2rem;
+  align-items: center;
+}
+
+.oracle-status > .donut {
+  font-size: 2rem;
+  font-weight: 300;
+  align-self: center;
+}
+
+.donut {
+  height: 10rem;
+  width: 10rem;
+}
+
+.donut-text {
+  font-size: 0.5rem;
+  /* line-height: 1; */
+  text-anchor: middle;
+  transform: translateY(0.175rem);
+}
+
+.oracle-status .metric::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #69b6d5;
+  align-self: center;
+}
+
+.oracle-status .active .metric::before {
+  background-color: var(--active-color);
+}
+.oracle-status .idle .metric::before {
+  background-color: var(--idle-color);
+}
+.oracle-status .offline .metric::before {
+  background-color: var(--offline-color);
+}
+
+.oracle-status .idle {
+  padding: 0.5rem 0;
+}
+

@@ -1,0 +1,17 @@
+.metric {
+  display: flex;
+  column-gap: 1rem;
+}
+.metric-contents {
+  display: flex;
+  gap: 1rem;
+}
+
+.metric-name {
+  /* font-weight: 300; */
+  color: #84828e;
+}
+
+.metric-name::after {
+  content: ":";
+}

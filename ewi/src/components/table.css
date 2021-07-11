@@ -1,0 +1,16 @@
+th {
+  color: #84828e;
+  text-align: left;
+}
+
+th, td {
+  font-size: 1.0rem;
+  font-weight: 500;
+  padding: 16px;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+
+}
+
+th:first-child, td:first-child {
+  padding-left: 0px;
+}

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 import './general.css';
 
@@ -11,22 +11,22 @@ const epochLength = 64800;
 function blocksToDuration(blocks) {
   const secs = blocks * 120;
   const days = Math.trunc(secs / 86400);
-  const hours =  Math.trunc(secs % 86400 / 3600);
+  const hours = Math.trunc(secs % 86400 / 3600);
   const minutes = Math.trunc(secs % 3600 / 60)
-  return {'days': days, 'hours': hours, 'minutes': minutes}
+  return { 'days': days, 'hours': hours, 'minutes': minutes }
 }
 
 const General = () => {
   var [height, setHeight] = useState(undefined);
-  
+
   useEffect(() => {
-    const qry = "http://localhost:8000/height";
+    const qry = "http://192.168.1.72:8000/height";
     fetch(qry)
       .then(res => res.json())
       .then(res => setHeight(res))
       .catch(err => console.error(err));
   }, [])
-  
+
   const blocksTillNextReduction = height > fixedRatePeriod ?
     epochLength - (height - fixedRatePeriod) % epochLength
     : fixedRatePeriod - height;

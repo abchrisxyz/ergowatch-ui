@@ -1,0 +1,9 @@
+div.card > div {
+  display: flex;
+  column-gap: 2rem;
+}
+
+div.card > h2 {
+  margin-bottom: 1rem;
+
+}

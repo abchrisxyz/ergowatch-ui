@@ -5,7 +5,10 @@
   --main-bg-color: rgb(250 250 250);
   --card-color: rgb(240 240 240);
   --text-color: #131021;
-  --active-color: #e54b4b;
+  --active-color: rgb(74, 199, 109);;
+  --idle-color: orange;
+  /* --offline-color: #E14A3C; */
+  --offline-color: #d2d3d4;
 }
 
 html{
