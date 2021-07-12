@@ -1,7 +1,10 @@
 .oracle-pool-wrapper {
   display: grid;
-  gap: 3em;
-  grid-template-columns: max-content max-content;
+  column-gap: 3em;
+  /* grid-template-columns: max-content max-content; */
+  /* grid-template-columns: 1fr 1fr; */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr)); */
 }
 
 .commit-stats {
@@ -91,3 +94,30 @@
   padding: 0.5rem 0;
 }
 
+#oracle-stats {
+  border: 1px solid black;
+}
+
+.oracle-stats ol {
+  border: 1px solid green;
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.oracle-stats li {
+  display: grid;
+  max-width: 700px;
+  grid-template-columns: 8em 2fr 2fr 1fr 2fr;
+  /* font-family: monospace, monospace; */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--column-width-min), 1fr));
+  justify-items: start;
+}
+
+.grid.commits {
+  --column-width-min: 5em;
+}

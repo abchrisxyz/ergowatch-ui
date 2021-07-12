@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
-import BreadCrumbs from "../components/breadcrumbs";
-import Card from "../components/card";
-import Metric from "../components/metric";
+import BreadCrumbs from "../../components/breadcrumbs";
+import Card from "../../components/card";
+import Metric from "../../components/metric";
 
 import './oracle-pool.css';
 
@@ -67,11 +67,43 @@ const CommitStats = ({ data }) => {
 }
 
 
-const OracleStatus = ({ data }) => {
+const OracleStats = ({ data }) => {
+  if (!data) return "";
+
+  function formatOracle(row, idx) {
+    const acceptanceRate = row.commits > 0
+      ? (row.accepted_commits / row.commits * 100).toFixed(1) + "%"
+      : "-";
+
+    return (
+      <li key={idx}>
+        <div data-name="Oracle">{row.address.substring(0, 8)}</div>
+        <div className="grid commits">
+          <div data-name="Total commits">{row.commits}</div>
+          <div data-name="Accepted commits">{acceptanceRate}</div>
+        </div>
+        <div data-name="Last Commit">{formatCommitDate(row.last_commit)}</div>
+        <div data-name="Collector payouts">{row.collections}</div>
+        <div data-name="Last Collection">{formatCommitDate(row.last_collection)}</div>
+      </li>
+    );
+  }
+
+  return (
+    <div className="oracle-stats">
+      <ol>
+        {data.map((row, idx) => formatOracle(row, idx))}
+      </ol>
+    </div>
+  );
+}
+
+
+const OracleStatus = ({ data, k }) => {
   if (!data) return "";
 
   const nTotal = data.length;
-  const status = data.map(row => oracleStatus(row.last_commit))
+  const status = data.map(row => oracleStatus(row[k]))
   const nActive = status.filter(s => s === "active").length
   const nIdle = status.filter(s => s === "idle").length
   const nOffline = status.filter(s => s === "offline").length
@@ -113,7 +145,7 @@ const OraclePool = () => {
   const [stats, setStats] = useState(undefined)
 
   useEffect(() => {
-    const qry = "http://192.168.1.72:8000/oracle-pools/commit-stats/ergusd";
+    const qry = "http://192.168.1.72:8000/oracle-pools/oracle-stats/ergusd";
     fetch(qry)
       .then(res => res.json())
       .then(res => setStats(res))
@@ -130,17 +162,24 @@ const OraclePool = () => {
       </BreadCrumbs>
       <div className="oracle-pool-wrapper">
         <Card title="Latest">
-          <Metric name="Rate" value="$6.73" />
-          <Metric name="Nb. of datapoints" value="6" />
+          <div className="flex">
+            <Metric name="Rate" value="$6.73" />
+            <Metric name="Nb. of datapoints" value="6" />
+          </div>
+        </Card>
+        <Card title="Stage">
+          ...
         </Card>
         <Card title="Oracles">
-          <OracleStatus data={stats} />
+          <OracleStatus data={stats} k="last_commit" />
         </Card>
-        <Card title="Oracle payouts">
-          <CommitStats data={stats} />
+        <Card title="Collectors">
+          <OracleStatus data={stats} k="last_collection" />
         </Card>
-        <Card title="Collector stats">
-          ...
+      </div>
+      <div id="oracle-stats">
+        <Card title="Oracle stats">
+          <OracleStats data={stats} />
         </Card>
       </div>
     </main>

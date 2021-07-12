@@ -1,9 +1,11 @@
-div.card > div {
+div.card {
+  margin-bottom: 3em;
+}
+div.card > div.flex {
   display: flex;
   column-gap: 2rem;
 }
 
 div.card > h2 {
   margin-bottom: 1rem;
-
 }

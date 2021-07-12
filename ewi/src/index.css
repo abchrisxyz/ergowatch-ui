@@ -11,6 +11,10 @@
   --offline-color: #d2d3d4;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html{
   font-size:14px
 }
