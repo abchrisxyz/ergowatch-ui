@@ -12,12 +12,12 @@
 .wrapper.toggled {
   grid-template-areas:
     "header"
+    "sync"
     "nav"
 }
 
 header {
   grid-area: header;
-  /*background-color: lightgray;*/
   padding: 10px;
 }
 
@@ -29,9 +29,7 @@ main {
 
 nav {
   grid-area: nav;
-  /*background-color: #e54b4b;*/
   display: none;
-
 }
 
 .flex-col {
@@ -78,14 +76,28 @@ footer {
 
 nav a {
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   color: var(--text-color);
 }
 
+nav a:hover {
+  background-color: rgb(245, 245, 245);
+}
+
 nav a.active {
-  /*color: var(--active-color);*/
+  /* color: var(--active-color); */
   font-weight: 600;
 }
+
+#sync-status {
+  display: flex;
+  justify-content: center;
+  font-size: 0.8rem;
+  column-gap: 1em;
+  margin-bottom: 0.5em;
+  /* background-color: beige; */
+}
+
 
 @media (min-width: 30rem) {
   .wrapper {

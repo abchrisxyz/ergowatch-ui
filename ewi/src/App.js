@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   NavLink,
@@ -13,6 +13,36 @@ import SigmaUSD from './pages/sigmausd';
 
 
 import './App.css';
+
+
+const SyncStatus = ({ }) => {
+  const [nodeHeight, setNodeHeight] = useState("...")
+  const [syncHeight, setSyncHeight] = useState("...")
+
+  useEffect(() => {
+    const qry = "http://192.168.1.72:8000/height";
+    fetch(qry)
+      .then(res => res.json())
+      .then(res => setNodeHeight(res))
+      .catch(err => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    const qry = "http://192.168.1.72:8000/sync-height";
+    fetch(qry)
+      .then(res => res.json())
+      .then(res => setSyncHeight(res))
+      .catch(err => console.error(err));
+  }, []);
+
+  return (
+    <div id="sync-status">
+      <div>Sync height: {syncHeight}</div>
+      <div>/</div>
+      <div>Node height: {nodeHeight}</div>
+    </div>
+  );
+}
 
 
 function App() {
@@ -58,7 +88,7 @@ function App() {
             </Route>
           </Switch>
           <footer>
-            Blabla
+            <SyncStatus />
           </footer>
         </div>
       </div>
