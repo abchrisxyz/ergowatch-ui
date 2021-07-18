@@ -1,0 +1,51 @@
+.pool-status {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2em;
+}
+
+.pool-status .summary {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: 2rem;
+  align-items: center;
+}
+
+.pool-status .donut {
+  font-size: 2rem;
+  font-weight: 300;
+  align-self: center;
+  height: 10rem;
+  width: 10rem;
+}
+
+.pool-status .donut-text {
+  font-size: 0.5rem;
+  /* line-height: 1; */
+  text-anchor: middle;
+  transform: translateY(0.175rem);
+}
+
+.pool-status .summary .metric::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #69b6d5;
+  align-self: center;
+}
+
+.pool-status .summary .active .metric::before {
+  background-color: var(--active-color);
+}
+.pool-status .summary .idle .metric::before {
+  background-color: var(--idle-color);
+}
+.pool-status .summary .offline .metric::before {
+  background-color: var(--offline-color);
+}
+
+.pool-status .summary .idle {
+  padding: 0.5rem 0;
+}

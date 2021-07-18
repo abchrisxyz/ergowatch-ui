@@ -15,7 +15,7 @@ import SigmaUSD from './pages/sigmausd';
 import './App.css';
 
 
-const SyncStatus = ({ }) => {
+const SyncStatus = () => {
   const [nodeHeight, setNodeHeight] = useState("...")
   const [syncHeight, setSyncHeight] = useState("...")
 

@@ -1,0 +1,52 @@
+.oracles-stats ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  /* grid-template-columns: 1fr 1fr; */
+  column-gap: 24px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.oracles-stats li {
+  margin-bottom: 2em;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 1em;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.oracles-stats .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1em;
+  margin-bottom: 0.5em;
+}
+
+.oracles-stats a {
+  text-decoration: none;
+  color: #0078ff;
+  /* font-family: monospace; */
+}
+
+.oracles-stats h4 {
+  /* font-style: italic; */
+  margin: 0;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+
+.oracles-stats .stats {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25em;
+}
+
+.oracles-stats .row {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 1em;
+}

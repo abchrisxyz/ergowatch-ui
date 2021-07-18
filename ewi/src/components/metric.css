@@ -1,6 +1,6 @@
 .metric {
   display: flex;
-  column-gap: 1rem;
+  column-gap: 0.3rem;
 }
 .metric-contents {
   display: flex;
