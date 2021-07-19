@@ -26,11 +26,11 @@ const Epochs = ({ data }) => {
   if (data.length === 0) return "";
   return (
     <div>
-      <ResponsiveContainer width="100 %" height={250}>
-        <LineChart data={data} margin={{ top: 0, left: -20, right: 0, bottom: 0 }}>
-          <Line type="monotone" dataKey="n" dot={false} strokeWidth={1} />
+      <ResponsiveContainer width="99%" height={250}>
+        <LineChart data={data} margin={{ top: 1, left: -25, right: 0, bottom: 0 }}>
+          <Line type="monotone" dataKey="n" dot={{ r: 1 }} strokeWidth={1} isAnimationActive={false} />
           <CartesianGrid stroke="#ccc" strokeDasharray="2 2" vertical={false} />
-          <XAxis dataKey="h" type="number" domain={['auto', 'auto']} tickMargin={10} />
+          <XAxis dataKey="h" reversed={true} interval="preserveStart" tickMargin={10} />
           <YAxis tickMargin={10} />
         </LineChart>
       </ResponsiveContainer>
