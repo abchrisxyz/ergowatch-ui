@@ -12,7 +12,6 @@
 .wrapper.toggled {
   grid-template-areas:
     "header"
-    "sync"
     "nav"
 }
 
