@@ -2,7 +2,7 @@ import Metric from "../../components/metric";
 
 import './pool-status.css';
 
-function commitStatus(lastCommit) {
+export function oracleStatus(lastCommit) {
   const hoursSinceLastCommit = (Date.now() - Date.parse(lastCommit)) / 1000 / 3600;
   var status = 'offline';
   if (hoursSinceLastCommit <= 1) {
@@ -16,7 +16,7 @@ function commitStatus(lastCommit) {
 
 const Summary = ({ data, k, label }) => {
   const nTotal = data.length;
-  const status = data.map(row => commitStatus(row["last_commit"]))
+  const status = data.map(row => oracleStatus(row["last_commit"]))
   const nActive = status.filter(s => s === "active").length
   const nIdle = status.filter(s => s === "idle").length
   const nOffline = status.filter(s => s === "offline").length

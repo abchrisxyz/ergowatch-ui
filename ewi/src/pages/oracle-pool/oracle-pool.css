@@ -1,4 +1,4 @@
-.oracle-pool {
+.oracle-pool-group {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   column-gap: 3em;
@@ -6,6 +6,7 @@
   /* flex-wrap: wrap; */
 }
 
-/* .oracle-pool .latest {
-  
-} */
+.oracle-pool .recharts-wrapper {
+  /* font-size: 16px; */
+  font-weight: 300;
+}

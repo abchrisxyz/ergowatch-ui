@@ -1,3 +1,4 @@
+import { oracleStatus } from './pool-status';
 import './oracle-stats.css';
 
 function formatCommitDate(timeString) {
@@ -12,10 +13,13 @@ const Oracle = ({ data, idx }) => {
     ? (data.accepted_commits / data.commits * 100).toFixed(1) + "%"
     : "-";
 
+  const status = oracleStatus(data.last_commit);
+
   return (
     <li>
       <div className="header">
         <h3>
+          <div className={"status " + status}></div>
           Oracle {data.oracle_id}
         </h3>
         <a href={`https://explorer.ergoplatform.com/en/addresses/${data.address}`} target="_blank" rel="noopener noreferrer">{data.address.substring(0, 8)}</a>
@@ -33,18 +37,18 @@ const Oracle = ({ data, idx }) => {
           <div className="row">
             <span>Last</span>{formatCommitDate(data.last_commit)}
           </div>
-
-          <div className="collections">
-            <h4>Collections</h4>
-            <div className="row">
-              <span>Payouts</span>{data.collections}
-            </div>
-            <div className="row">
-              <span>Last</span>{formatCommitDate(data.last_collection)}
-            </div>
+        </div>
+        <div className="collections">
+          <h4>Collections</h4>
+          <div className="row">
+            <span>Payouts</span>{data.collections}
+          </div>
+          <div className="row">
+            <span>Last</span>{formatCommitDate(data.last_collection)}
           </div>
         </div>
       </div>
+
     </li>
   );
 }

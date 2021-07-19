@@ -27,11 +27,11 @@ const Epochs = ({ data }) => {
   return (
     <div>
       <ResponsiveContainer width="100 %" height={250}>
-        <LineChart data={data}>
+        <LineChart data={data} margin={{ top: 0, left: -20, right: 0, bottom: 0 }}>
           <Line type="monotone" dataKey="n" dot={false} strokeWidth={1} />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <XAxis dataKey="h" />
-          <YAxis />
+          <CartesianGrid stroke="#ccc" strokeDasharray="2 2" vertical={false} />
+          <XAxis dataKey="h" type="number" domain={['auto', 'auto']} tickMargin={10} />
+          <YAxis tickMargin={10} />
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -77,19 +77,21 @@ const OraclePool = () => {
         <Link to="/oracle-pools/{pair}">{pair}</Link>
       </BreadCrumbs>
       <div className="oracle-pool">
-        <Card title="Latest">
-          <Latest data={latest} />
+        <div className="oracle-pool-group">
+          <Card title="Latest">
+            <Latest data={latest} />
+          </Card>
+          <Card title="Oracles">
+            <PoolStatus oracleStats={stats} />
+          </Card>
+        </div>
+        <Card title="Recent epoch durations">
+          <Epochs data={epochs} />
         </Card>
-        <Card title="Oracles">
-          <PoolStatus oracleStats={stats} />
+        <Card title="Oracle stats">
+          <OracleStats data={stats} />
         </Card>
       </div>
-      <Card title="Recent epoch durations">
-        <Epochs data={epochs} />
-      </Card>
-      <Card title="Oracle stats">
-        <OracleStats data={stats} />
-      </Card>
     </main>
   )
 }
