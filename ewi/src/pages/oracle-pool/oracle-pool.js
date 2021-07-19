@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";
@@ -16,7 +17,23 @@ const Latest = ({ data }) => {
     <div className="latest">
       <Metric name="Rate" value={"$" + Number(data.price).toFixed(2)} />
       <Metric name="Posting height" value={data.height} />
-      <Metric name="Nb. of datapoints" value="6" />
+      <Metric name="Nb. of datapoints" value={data.datapoints} />
+    </div>
+  );
+}
+
+const Epochs = ({ data }) => {
+  if (data.length === 0) return "";
+  return (
+    <div>
+      <ResponsiveContainer width="100 %" height={250}>
+        <LineChart data={data}>
+          <Line type="monotone" dataKey="n" dot={false} strokeWidth={1} />
+          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <XAxis dataKey="h" />
+          <YAxis />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   );
 }
@@ -25,12 +42,21 @@ const OraclePool = () => {
   const { pair } = useParams();
   const [stats, setStats] = useState(undefined);
   const [latest, setLatest] = useState(undefined);
+  const [epochs, setEpochs] = useState([]);
 
   useEffect(() => {
     const qry = "http://192.168.1.72:8000/oracle-pools/ergusd/latest";
     fetch(qry)
       .then(res => res.json())
       .then(res => setLatest(res))
+      .catch(err => console.error(err));
+  }, [])
+
+  useEffect(() => {
+    const qry = "http://192.168.1.72:8000/oracle-pools/ergusd/recent-epoch-durations";
+    fetch(qry)
+      .then(res => res.json())
+      .then(res => setEpochs(res))
       .catch(err => console.error(err));
   }, [])
 
@@ -58,6 +84,9 @@ const OraclePool = () => {
           <PoolStatus oracleStats={stats} />
         </Card>
       </div>
+      <Card title="Recent epoch durations">
+        <Epochs data={epochs} />
+      </Card>
       <Card title="Oracle stats">
         <OracleStats data={stats} />
       </Card>

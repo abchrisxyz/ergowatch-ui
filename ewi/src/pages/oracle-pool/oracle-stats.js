@@ -1,4 +1,3 @@
-import Metric from '../../components/metric';
 import './oracle-stats.css';
 
 function formatCommitDate(timeString) {

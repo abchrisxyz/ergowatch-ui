@@ -26,7 +26,6 @@ const OraclePools = () => {
       </BreadCrumbs>
       <div className="oracle-pools">
         <OraclePoolPreview pair="ERGUSD" label="ERG/USD" />
-        <OraclePoolPreview pair="ERGEUR" label="ERG/EUR" />
       </div>
     </main>
   )
