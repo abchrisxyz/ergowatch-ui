@@ -5,19 +5,56 @@ import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis } fro
 
 import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";
-import Metric from "../../components/metric";
 import PoolStatus from "./pool-status";
 import OracleStats from "./oracle-stats";
 
 import './oracle-pool.css';
 
+
+const PoolDetails = ({ data }) => {
+  return (
+    <div className="stats-group">
+      <div className="stat">
+        <div className="label">Number of oracles</div>
+        <div className="value">11</div>
+      </div>
+      <div className="stat">
+        <div className="label">Consensus number</div>
+        <div className="value">4</div>
+      </div>
+      <div className="stat">
+        <div className="label">Deviation range</div>
+        <div className="value">5 %</div>
+      </div>
+      <div className="stat">
+        <div className="label">Live epoch length</div>
+        <div className="value">6 blocks</div>
+      </div>
+      <div className="stat">
+        <div className="label">Epoch prep length</div>
+        <div className="value">2 blocks</div>
+      </div>
+    </div>
+  );
+}
+
+
 const Latest = ({ data }) => {
   if (data === undefined) return "";
   return (
-    <div className="latest">
-      <Metric name="Rate" value={"$" + Number(data.price).toFixed(2)} />
-      <Metric name="Posting height" value={data.height} />
-      <Metric name="Nb. of datapoints" value={data.datapoints} />
+    <div className="stats-group">
+      <div className="stat">
+        <div className="label">Rate</div>
+        <div className="value">{"$" + Number(data.price).toFixed(2)}</div>
+      </div>
+      <div className="stat">
+        <div className="label">Posting height</div>
+        <div className="value">{data.height}</div>
+      </div>
+      <div className="stat">
+        <div className="label">Datapoints</div>
+        <div className="value">{data.datapoints}</div>
+      </div>
     </div>
   );
 }
@@ -78,17 +115,20 @@ const OraclePool = () => {
       </BreadCrumbs>
       <div className="oracle-pool">
         <div className="oracle-pool-group">
-          <Card title="Latest">
+          <Card title="Pool Details">
+            <PoolDetails />
+          </Card>
+          <Card title="Latest Price">
             <Latest data={latest} />
           </Card>
-          <Card title="Oracles">
+          <Card title="Active Oracles">
             <PoolStatus oracleStats={stats} />
           </Card>
         </div>
-        <Card title="Recent epoch durations">
+        <Card title="Nb. Of Blocks Between Updates">
           <Epochs data={epochs} />
         </Card>
-        <Card title="Oracle stats">
+        <Card title="Oracle Stats">
           <OracleStats data={stats} />
         </Card>
       </div>

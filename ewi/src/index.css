@@ -16,7 +16,7 @@
 }
 
 html{
-  font-size:14px
+  font-size:14px;
 }
 
 body{
@@ -42,9 +42,9 @@ h1 {
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 h3 {
-  font-size: 1.0rem;
+  font-size: 1.1rem;
 }

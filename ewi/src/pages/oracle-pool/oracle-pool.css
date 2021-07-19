@@ -11,10 +11,28 @@
   font-weight: 300;
 }
 
-.oracle-pool .latest {
-  max-width: 400px;
+.oracle-pool .stats-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0.5em;
+}
+
+.oracle-pool .stats-group .stat{
   display: flex;
-  flex-wrap: wrap;
-  row-gap: 1em;    
-  column-gap: 1em;    
+  justify-content: space-between;
+}
+
+.oracle-pool .stats-group .stat .label{
+  margin-right: 3em;
+  font-weight: 400;
+}
+
+.oracle-pool .stats-group .stat .value{
+  font-weight: 300;
+}
+
+@media (min-width: 713px) {
+  .oracle-pool .stats-group {
+    grid-template-columns: max-content;
+  }
 }
