@@ -67,7 +67,7 @@ const Epochs = ({ data }) => {
         <LineChart data={data} margin={{ top: 1, left: -25, right: 0, bottom: 0 }}>
           <Line type="monotone" dataKey="n" dot={{ r: 1 }} strokeWidth={1} isAnimationActive={false} />
           <CartesianGrid stroke="#ccc" strokeDasharray="2 2" vertical={false} />
-          <XAxis dataKey="h" reversed={true} interval="preserveStart" tickMargin={10} />
+          <XAxis dataKey="h" interval="preserveStartEnd" tickMargin={10} />
           <YAxis tickMargin={10} />
         </LineChart>
       </ResponsiveContainer>
