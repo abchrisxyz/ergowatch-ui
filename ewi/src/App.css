@@ -2,7 +2,7 @@
   display: grid;
   height: 100vh;
   grid-template-columns: 100vw;
-  grid-template-rows: 50px 1fr 50px;
+  grid-template-rows: 50px 1fr 40px;
   grid-template-areas:
     "header"
     "main"
@@ -38,11 +38,12 @@ nav {
 
 footer {
   grid-area: footer;
-  background-color: #1e1e24;
-  color: white;
-  text-align: center;
-  display:  grid;
-  align-content: center;
+  background-color: rgb(210 210 210);;
+  color: var(--text-color);
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .toggled > main {
@@ -89,7 +90,6 @@ nav a:hover {
 }
 
 nav a.active {
-  /* color: var(--active-color); */
   font-weight: 600;
 }
 
@@ -98,8 +98,6 @@ nav a.active {
   justify-content: center;
   font-size: 0.8rem;
   column-gap: 1em;
-  margin-bottom: 0.5em;
-  /* background-color: beige; */
 }
 
 

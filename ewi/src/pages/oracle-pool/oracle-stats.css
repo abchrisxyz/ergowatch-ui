@@ -22,7 +22,7 @@
   justify-content: space-between;
   align-items: center;
   column-gap: 1em;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 .oracles-stats .header h3 {
@@ -31,21 +31,14 @@
   align-items: center;
 }
 
-.oracles-stats .status {
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 0.4rem;
-  background-color: #69b6d5;
-}
-
 .oracles-stats .status.active {
-  background-color: var(--active-color);
+  fill: var(--active-color);
 }
 .oracles-stats .status.idle {
-  background-color: var(--idle-color);
+  fill: var(--idle-color);
 }
 .oracles-stats .status.offline {
-  background-color: var(--offline-color);
+  fill: var(--offline-color);
 }
 
 .oracles-stats a {
@@ -64,17 +57,16 @@
 
 .oracles-stats .stats span {
   font-weight: 300;
-  color: #84828e;
+  /* color: #84828e; */
 }
 
 .oracles-stats .stats {
   display: flex;
   flex-direction: column;
-  row-gap: 0.5em;
+  row-gap: 1em;
 }
 
 .oracles-stats .row {
   display: flex;
   justify-content: space-between;
-  column-gap: 1em;
 }

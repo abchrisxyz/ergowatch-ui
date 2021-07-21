@@ -38,7 +38,6 @@ const PoolDetails = ({ data }) => {
   );
 }
 
-
 const Latest = ({ data }) => {
   if (data === undefined) return "";
   return (

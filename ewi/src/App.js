@@ -6,7 +6,8 @@ import {
   Route,
 } from 'react-router-dom';
 
-import General from './pages/general';
+import Home from './pages/home';
+import Emission from './pages/emission';
 import OraclePools from './pages/oracle-pools';
 import OraclePool from './pages/oracle-pool';
 import SigmaUSD from './pages/sigmausd';
@@ -68,14 +69,17 @@ function App() {
           </header>
           <nav>
             <div className="flex-col">
-              <NavLink onClick={() => hideNav()} exact to="/">General</NavLink>
+              <NavLink onClick={() => hideNav()} exact to="/emission">Emission</NavLink>
               <NavLink onClick={() => hideNav()} exact to="/oracle-pools">Oracle Pools</NavLink>
               <NavLink onClick={() => hideNav()} exact to="/sigmausd">SigmaUSD</NavLink>
             </div>
           </nav>
           <Switch>
             <Route path="/" exact>
-              <General />
+              <Home />
+            </Route>
+            <Route path="/emission">
+              <Emission />
             </Route>
             <Route exact path="/oracle-pools">
               <OraclePools />

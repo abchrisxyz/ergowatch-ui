@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import './general.css';
+import './emission.css';
 
 const fixedRatePeriod = 525600;
 const epochLength = 64800;
@@ -36,8 +36,8 @@ const General = () => {
 
   return (
     <main>
-      <h1>General</h1>
-      <div className="general-wrapper">
+      <h1>Emission</h1>
+      <div className="emission-wrapper">
         <h2>Blocks</h2>
         <div>
           <h3>Current height: {height}</h3>

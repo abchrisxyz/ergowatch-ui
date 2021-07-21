@@ -19,32 +19,37 @@ const Oracle = ({ data, idx }) => {
     <li>
       <div className="header">
         <h3>
-          <div className={"status " + status}></div>
+          <svg className={"status " + status} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" height="0.8em" width="0.8em">
+            <circle cx="50" cy="50" r="50" />
+          </svg>
           Oracle {data.oracle_id}
         </h3>
-        <a href={`https://explorer.ergoplatform.com/en/addresses/${data.address}`} target="_blank" rel="noopener noreferrer">{data.address.substring(0, 8)}</a>
+        <div className="address">
+          <a href={`https://explorer.ergoplatform.com/en/addresses/${data.address}`} target="_blank" rel="noopener noreferrer">{data.address.substring(0, 8)}</a>
+          {/* <div className={"status " + status}></div> */}
+        </div>
       </div>
 
       <div className="stats">
         <div className="commits">
           <h4>Datapoints</h4>
           <div className="row">
-            <span>Submitted</span>{data.commits}
+            Submitted<span>{data.commits}</span>
           </div>
           <div className="row">
-            <span>Accepted</span>{acceptanceRate}
+            Accepted<span>{acceptanceRate}</span>
           </div>
           <div className="row">
-            <span>Last</span>{formatCommitDate(data.last_commit)}
+            Last<span>{formatCommitDate(data.last_commit)}</span>
           </div>
         </div>
         <div className="collections">
           <h4>Collections</h4>
           <div className="row">
-            <span>Payouts</span>{data.collections}
+            Payouts<span>{data.collections}</span>
           </div>
           <div className="row">
-            <span>Last</span>{formatCommitDate(data.last_collection)}
+            Last<span>{formatCommitDate(data.last_collection)}</span>
           </div>
         </div>
       </div>
