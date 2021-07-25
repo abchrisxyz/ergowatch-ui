@@ -38,9 +38,14 @@ const SyncStatus = () => {
 
   return (
     <div id="sync-status">
-      <div>Sync height: {syncHeight}</div>
-      <div>/</div>
-      <div>Node height: {nodeHeight}</div>
+      <div>
+        <div>DB height</div>
+        <div className="value">{syncHeight}</div>
+      </div>
+      <div>
+        <div>Node height</div>
+        <div className="value">{nodeHeight}</div>
+      </div>
     </div>
   );
 }
@@ -60,12 +65,12 @@ function App() {
           <header>
             <div className="logo">
               <a href="/">ErgoWatch</a>
-              <button id="nav-burger" onClick={() => setShowNav(!showNav)}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                  <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                </svg>
-              </button>
             </div>
+            <button id="nav-burger" onClick={() => setShowNav(!showNav)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+              </svg>
+            </button>
           </header>
           <nav>
             <div className="flex-col">
@@ -74,6 +79,7 @@ function App() {
               <NavLink onClick={() => hideNav()} exact to="/sigmausd">SigmaUSD</NavLink>
             </div>
           </nav>
+          <SyncStatus />
           <Switch>
             <Route path="/" exact>
               <Home />
@@ -91,9 +97,8 @@ function App() {
               <SigmaUSD />
             </Route>
           </Switch>
-          <footer>
-            <SyncStatus />
-          </footer>
+          {/* <footer>
+          </footer> */}
         </div>
       </div>
     </Router>

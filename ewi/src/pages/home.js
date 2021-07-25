@@ -12,15 +12,9 @@ const Home = () => {
         </div>
       </div>
       <div className="menu">
-        <div className="item">
-          <a href="/emission">Emission</a>
-        </div>
-        <div className="item">
-          <a href="/oracle-pools">Oracle Pools</a>
-        </div>
-        <div className="item">
-          <a href="/sigmausd">SigmaUSD</a>
-        </div>
+        <a className="item" href="/emission"><h2>Emission</h2></a>
+        <a className="item" href="/oracle-pools"><h2>Oracle Pools</h2></a>
+        <a className="item" href="/sigmausd"><h2>SigmaUSD</h2></a>
       </div>
     </main>
   );

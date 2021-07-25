@@ -9,7 +9,7 @@ const OraclePoolPreview = ({ pair, label }) => {
 
     <Link to={"oracle-pools/" + pair}>
       <div className="oracle-pool-preview">
-        {label}
+        <h2>{label}</h2>
       </div>
     </Link>
 

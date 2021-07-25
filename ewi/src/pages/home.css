@@ -40,7 +40,7 @@
   }
 }
 
-.menu .item {
+.menu a {
   width: 200px;
   height: 100px;
   display: flex;
@@ -54,5 +54,5 @@
 .menu a {
   text-decoration: none;
   color: inherit;
-  font-size: 20px;
+  /* font-size: 20px; */
 }

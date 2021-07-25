@@ -2,11 +2,12 @@
   display: grid;
   height: 100vh;
   grid-template-columns: 100vw;
-  grid-template-rows: 50px 1fr 40px;
+  grid-template-rows: 50px max-content 1fr 40px;
   grid-template-areas:
     "header"
+    "sync"
     "main"
-    "footer";
+    /* "footer"; */
 }
 
 .wrapper.toggled {
@@ -17,7 +18,10 @@
 
 header {
   grid-area: header;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  padding: 10px 24px;
 }
 
 main {
@@ -59,9 +63,6 @@ footer {
 }
 
 .logo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 1.5rem;
 }
 
@@ -81,7 +82,7 @@ footer {
 
 nav a {
   text-decoration: none;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 24px;
   color: var(--text-color);
 }
 
@@ -91,25 +92,41 @@ nav a:hover {
 
 nav a.active {
   font-weight: 600;
+  /* background-color: var(--main-bg-color); */
 }
 
 #sync-status {
+  grid-area: sync;
   display: flex;
-  justify-content: center;
-  font-size: 0.8rem;
+  justify-content: space-between;
+  /* align-items: center; */
   column-gap: 1em;
+  font-weight: 300;
+  padding: 1em 24px;
+}
+
+#sync-status > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+}
+
+#sync-status .value {
+  font-size: 2em;
+  /* font-weight: 400; */
 }
 
 
-@media (min-width: 30rem) {
+@media (min-width: 770px) {
   .wrapper {
     height: 100%;
     min-height: 100vh;
-    grid-template-columns: minmax(max-content, 15%) 1fr;
+    grid-template-columns: minmax(max-content, min(15%, 280px)) 1fr;
     grid-template-areas:
       "header main"
+      "sync main"
       "nav main"
-      "footer footer";
+      /* "footer footer"; */
   }
   nav {
     display: inherit;
@@ -120,4 +137,9 @@ nav a.active {
   #nav-burger {
     display:  none;
   }
+  .logo {
+    display: flex;
+    justify-content: center;
+  }
+  
 }
