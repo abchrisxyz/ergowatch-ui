@@ -2,11 +2,11 @@
   /* background-color: lightgray; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
 .banner .logo {
+  display: block;
   font-size: 48px;
   font-weight: 300;
   margin-top: 1em;
@@ -16,7 +16,7 @@
 .banner .logo span {
   font-size: 1rem;
   position: relative;
-  bottom: 15px;
+  bottom: 25px;
   left: 5px;
 }
 
