@@ -1,0 +1,9 @@
+.emission {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: 3em;
+}
+
+.chart {
+  font-weight: 300;
+}

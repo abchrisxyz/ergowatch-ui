@@ -1,0 +1,5 @@
+.card-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: 3em;
+}

@@ -1,0 +1,25 @@
+.stats-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0.5em;
+}
+
+.stats-group .stat{
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats-group .stat .label{
+  margin-right: 4em;
+  font-weight: 400;
+}
+
+.stats-group .stat .value{
+  font-weight: 300;
+}
+
+@media (min-width: 713px) {
+  .stats-group {
+    grid-template-columns: max-content;
+  }
+}
