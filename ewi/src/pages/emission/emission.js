@@ -19,6 +19,20 @@ function blocksToDuration(blocks) {
 }
 
 
+function circulatingSupply(height) {
+  var rate = fixedRate;
+  var h = fixedRatePeriod - 1;
+  var cs = rate * h;
+  while (h < height) {
+    rate = rate - oneEpochReduction;
+    const inc = Math.min(height - h, epochLength)
+    cs = cs + inc * rate;
+    h = h + inc;
+  }
+  return cs;
+}
+
+
 const Settings = () => {
   return (
     <StatGroup>
@@ -42,12 +56,15 @@ const CurrentEpoch = ({ epoch, rate, blocksRemaining, timeRemaining }) => {
   );
 }
 
-const Temp = () => {
+const Temp = ({ height }) => {
+  const circSupply = circulatingSupply(height);
+  const totalSupply = emissionSeries.slice(-1)[0].e * 1000000;
+  const circSupplyPercentage = circSupply / totalSupply * 100;
   return (
     <StatGroup>
-      <Stat label="Circulating" value="35M" />
-      <Stat label="Total" value="97.74M" />
-      <Stat label="% Of Total" value="33 %" />
+      <Stat label="Circulating" value={circSupply.toLocaleString('en')} />
+      <Stat label="Total" value={totalSupply.toLocaleString('en')} />
+      <Stat label="% Of Total" value={`${circSupplyPercentage.toFixed(2)} %`} />
     </StatGroup>
   );
 }
@@ -59,13 +76,17 @@ const EmissionChart = ({ currentHeight, rate }) => {
   const rticks = [0, rate, 75]
   return (
     <div className="chart">
+      <div className="legend">
+        <div style={{ color: "#35a7ff" }}>Emitted Amount</div>
+        <div style={{ color: "#ff5964" }}>Emission Rate</div>
+      </div>
       <ResponsiveContainer width="99%" height={350}>
         <LineChart>
           <Line yAxisId="left" type="monotone" data={emissionSeries} dataKey="e" dot={false} stroke="#35a7ff" strokeWidth="1" />
           <Line yAxisId="right" type="monotone" data={rateSeries} dataKey="r" dot={false} stroke="#ff5964" strokeWidth="1" />
           <YAxis yAxisId="left" stroke="#35a7ff" domain={[0, 97.74]} ticks={eticks} />
           <YAxis yAxisId="right" orientation="right" stroke="#ff5964" name="Rate" domain={[0, 75]} ticks={rticks} />
-          <Legend verticalAlign="top" iconType="line" />
+          {/* <Legend verticalAlign="top" iconType="line" /> */}
           <ReferenceLine x={currentHeight} yAxisId="left" stroke="black" strokeWidth="1" opacity="0.5" />
           <CartesianGrid stroke="#ccc" strokeDasharray="2 2" vertical={false} />
           <XAxis dataKey="h" type="number" domain={['dataMin', 'dataMax']} ticks={xticks} />
@@ -112,7 +133,7 @@ const Emission = () => {
           />
         </Card>
         <Card title="Coins">
-          <Temp />
+          <Temp height={height} />
         </Card>
       </div>
       <Card title="Emission Curve">

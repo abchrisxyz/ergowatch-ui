@@ -7,3 +7,11 @@
 .chart {
   font-weight: 300;
 }
+
+.chart > .legend {
+  display: flex;
+  column-gap: 2em;
+  justify-content: center;
+  margin-bottom: 0.25em;
+  font-weight: 600;
+}
