@@ -24,15 +24,15 @@ const bank = {
 	baseReserves: 0 * 10 ** 9, // nanoERGs
 }
 
-const TOTAL_SIGUSD_TOKENS = 100000000000.01
+// const TOTAL_SIGUSD_TOKENS = 100000000000.01
 const TOTAL_SIGRSV_TOKENS = 10000000000001
 const MIN_RESERVE_RATIO = 400; // %
 const MAX_RESERVE_RATIO = 800; // %
 const RESERVECOIN_DEFAULT_PRICE = 1000000; // nanoERG (0.001 ERG)
-const MIN_BOX_VALUE = 10000000; // nanoERG (0.01 ERG)
-const TX_FEE = 2000000; // nanoERG (0.002 ERG)
+// const MIN_BOX_VALUE = 10000000; // nanoERG (0.01 ERG)
+// const TX_FEE = 2000000; // nanoERG (0.002 ERG)
 const FEE_PERCENT = 2; // %
-const IMPLEMENTOR_FEE_PERCENT = 0.25; // %
+// const IMPLEMENTOR_FEE_PERCENT = 0.25; // %
 
 export function initialBank() {
 	return Object.create(bank);
@@ -139,42 +139,6 @@ function _baseCostToMint(rate, nbToMint) {
 	const protocolFee = noFeeCost * FEE_PERCENT / 100;
 	return noFeeCost + protocolFee;
 }
-
-/*
- * Base amount returned from redeeming SC or RC [nanoERG]
- * This is amount after fees that go to reserve (protocol fees).
- *
- * rate: coin price [nanoERG]
- * nbToMint: number of stable coins to be minted [-]
- */
-function _baseAmountToRedeem(rate, nbToMint) {
-	const noFeeAmount = rate * nbToMint;
-	const protocolFee = noFeeAmount * FEE_PERCENT / 100;
-	return noFeeAmount - protocolFee;
-}
-
-/*
- * Add non-protocol fees on top of base cost [nanoERG]
- * This is base cost + any fees that don't make it to the reserve (tx and implementor).
- *
- * baseCost: Cost of minted coins + protocol fees [nanoERG]
- */
-function _totalCostToMint(baseCost) {
-	const implementorsFee = baseCost * IMPLEMENTOR_FEE_PERCENT / 100;
-	return baseCost + implementorsFee + TX_FEE + MIN_BOX_VALUE * 2;
-}
-
-/*
- * Deduct non-protocol fees from base redeemable amount [nanoERG]
- * This is base amount - any fees that don't make it to the reserve (tx and implementor).
- *
- * baseAmount: Value of redeemed coins + protocol fees [nanoERG]
- */
-function _totalAmountToRedeem(baseAmount) {
-	const implementorsFee = baseAmount * IMPLEMENTOR_FEE_PERCENT / 100;
-	return baseAmount - implementorsFee - TX_FEE;
-}
-
 
 /*
  * Amount of stable coin that can be minted whilst satisfying RR constraints.

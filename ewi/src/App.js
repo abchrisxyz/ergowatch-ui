@@ -12,6 +12,7 @@ import Emission from './pages/emission';
 import OraclePools from './pages/oracle-pools';
 import OraclePool from './pages/oracle-pool';
 import SigmaUSD from './pages/sigmausd';
+import { API_ROOT } from './config';
 
 
 import './App.css';
@@ -24,7 +25,7 @@ const SyncStatus = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const qry = "http://192.168.1.72:8000/height";
+    const qry = API_ROOT + "/height";
     fetch(qry)
       .then(res => res.json())
       .then(res => setNodeHeight(res))
@@ -32,7 +33,7 @@ const SyncStatus = () => {
   }, [location]);
 
   useEffect(() => {
-    const qry = "http://192.168.1.72:8000/sync-height";
+    const qry = API_ROOT + "/sync-height";
     fetch(qry)
       .then(res => res.json())
       .then(res => setSyncHeight(res))

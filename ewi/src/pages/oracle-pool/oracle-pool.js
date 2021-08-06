@@ -7,6 +7,7 @@ import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";
 import PoolStatus from "./pool-status";
 import OracleStats from "./oracle-stats";
+import { API_ROOT } from "../../config";
 
 import './oracle-pool.css';
 
@@ -81,7 +82,7 @@ const OraclePool = () => {
   const [epochs, setEpochs] = useState([]);
 
   useEffect(() => {
-    const qry = "http://192.168.1.72:8000/oracle-pools/ergusd/latest";
+    const qry = API_ROOT + "/oracle-pools/ergusd/latest";
     fetch(qry)
       .then(res => res.json())
       .then(res => setLatest(res))
@@ -89,7 +90,7 @@ const OraclePool = () => {
   }, [])
 
   useEffect(() => {
-    const qry = "http://192.168.1.72:8000/oracle-pools/ergusd/recent-epoch-durations";
+    const qry = API_ROOT + "/oracle-pools/ergusd/recent-epoch-durations";
     fetch(qry)
       .then(res => res.json())
       .then(res => setEpochs(res))
@@ -97,7 +98,7 @@ const OraclePool = () => {
   }, [])
 
   useEffect(() => {
-    const qry = "http://192.168.1.72:8000/oracle-pools/ergusd/oracle-stats";
+    const qry = API_ROOT + "/oracle-pools/ergusd/oracle-stats";
     fetch(qry)
       .then(res => res.json())
       .then(res => setStats(res))
