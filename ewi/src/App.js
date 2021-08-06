@@ -4,6 +4,7 @@ import {
   NavLink,
   Switch,
   Route,
+  useLocation
 } from 'react-router-dom';
 
 import Home from './pages/home';
@@ -20,13 +21,15 @@ const SyncStatus = () => {
   const [nodeHeight, setNodeHeight] = useState("...")
   const [syncHeight, setSyncHeight] = useState("...")
 
+  const location = useLocation();
+
   useEffect(() => {
     const qry = "http://192.168.1.72:8000/height";
     fetch(qry)
       .then(res => res.json())
       .then(res => setNodeHeight(res))
       .catch(err => console.error(err));
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     const qry = "http://192.168.1.72:8000/sync-height";
@@ -34,7 +37,9 @@ const SyncStatus = () => {
       .then(res => res.json())
       .then(res => setSyncHeight(res))
       .catch(err => console.error(err));
-  }, []);
+  }, [location]);
+
+
 
   return (
     <div id="sync-status">
@@ -64,7 +69,7 @@ function App() {
         <div className={showNav ? "wrapper toggled" : "wrapper"}>
           <header>
             <div className="logo">
-              <a href="/">ErgoWatch</a>
+              <a href="/">Ergo Watch</a>
             </div>
             <button id="nav-burger" onClick={() => setShowNav(!showNav)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
@@ -97,8 +102,6 @@ function App() {
               <SigmaUSD />
             </Route>
           </Switch>
-          {/* <footer>
-          </footer> */}
         </div>
       </div>
     </Router>

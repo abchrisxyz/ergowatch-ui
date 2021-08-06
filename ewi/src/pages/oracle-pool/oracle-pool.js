@@ -114,7 +114,7 @@ const OraclePool = () => {
       </BreadCrumbs>
       <div className="oracle-pool">
         <div className="oracle-pool-group">
-          <Card title="Pool Details">
+          <Card title="Pool Settings">
             <PoolDetails />
           </Card>
           <Card title="Latest Price">
