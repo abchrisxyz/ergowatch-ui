@@ -29,7 +29,7 @@ const PoolDetails = ({ data }) => {
       </div>
       <div className="stat">
         <div className="label">Live epoch length</div>
-        <div className="value">6 blocks</div>
+        <div className="value">4 blocks</div>
       </div>
       <div className="stat">
         <div className="label">Epoch prep length</div>
