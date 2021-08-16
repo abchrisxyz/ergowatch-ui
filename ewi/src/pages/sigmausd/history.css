@@ -1,0 +1,20 @@
+.history {
+  display: flex;
+  flex-direction: column;
+}
+.history ul.window-selector {
+  list-style: none;
+  display: flex;
+  column-gap: 1em;
+  font-weight: 300;
+  align-self: center;
+}
+
+.history ul.window-selector li:hover {
+  cursor: pointer;
+}
+
+.history ul.window-selector li.active {
+  font-weight: 600;
+  text-decoration: underline;
+}

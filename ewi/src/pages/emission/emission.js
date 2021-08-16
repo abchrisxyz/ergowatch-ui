@@ -47,25 +47,31 @@ const Settings = () => {
 
 const CurrentEpoch = ({ epoch, rate, blocksRemaining, timeRemaining }) => {
   if (!epoch) return "";
+  const expectedEnd = new Date();
+  expectedEnd.setDate(expectedEnd.getDate() + timeRemaining.days)
+  expectedEnd.setHours(expectedEnd.getHours() + timeRemaining.hours)
+  expectedEnd.setMinutes(expectedEnd.getMinutes() + timeRemaining.minutes)
+
   return (
     <StatGroup>
       <Stat label="Number" value={epoch} />
       <Stat label="Emission rate" value={rate + " ERG / block"} />
       <Stat label="Blocks remaining" value={blocksRemaining} />
       <Stat label="Time remaining" value={`~${timeRemaining.days} days ${timeRemaining.hours}h${timeRemaining.minutes}m`} />
+      <Stat label="Expected end" value={expectedEnd.toLocaleString()} />
     </StatGroup>
   );
 }
 
-const Temp = ({ height }) => {
+const Supply = ({ height }) => {
   const circSupply = circulatingSupply(height);
   const totalSupply = emissionSeries.slice(-1)[0].e * 1000000;
   const circSupplyPercentage = circSupply / totalSupply * 100;
   return (
     <StatGroup>
-      <Stat label="Circulating" value={circSupply.toLocaleString('en')} />
       <Stat label="Total" value={totalSupply.toLocaleString('en')} />
-      <Stat label="% Of Total" value={`${circSupplyPercentage.toFixed(2)} %`} />
+      <Stat label="Circulating" value={circSupply.toLocaleString('en')} />
+      <Stat label="Emission" value={`${circSupplyPercentage.toFixed(2)} %`} />
     </StatGroup>
   );
 }
@@ -78,8 +84,8 @@ const EmissionChart = ({ currentHeight, rate }) => {
   return (
     <div className="chart">
       <div className="legend">
-        <div style={{ color: "#35a7ff" }}>Emitted Amount</div>
-        <div style={{ color: "#ff5964" }}>Emission Rate</div>
+        <div style={{ color: "#35a7ff" }}>Emitted Amount [M]</div>
+        <div style={{ color: "#ff5964" }}>Emission Rate [ERG/block]</div>
       </div>
       <ResponsiveContainer width="99%" height={350}>
         <LineChart margin={{ top: 5, right: -35, left: -14, bottom: 5 }}>
@@ -132,8 +138,8 @@ const Emission = () => {
             timeRemaining={timeRemaining}
           />
         </Card>
-        <Card title="Coins">
-          <Temp height={height} />
+        <Card title="Supply">
+          <Supply height={height} />
         </Card>
       </div>
       <Card title="Emission Curve">

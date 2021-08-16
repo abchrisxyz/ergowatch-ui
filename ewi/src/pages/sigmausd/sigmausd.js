@@ -1,41 +1,14 @@
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
-// import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis } from "recharts";
 import { createChart, CrosshairMode } from 'lightweight-charts';
 
 import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";
 import { StatGroup, Stat } from "../../components/stats";
+import History from "./history";
 import { createBank, fromNano, calcSCRate, calcRCRate, calcMintableSC, calcMintableRC, calcRedeemableRC, calcLiabilities, calcEquity, calcReserveRatio } from "./ageusd";
 import { API_ROOT } from "../../config";
 import './sigmausd.css';
-
-
-// function formatTimestamp(t) {
-//   const d = new Date(t)
-//   const f = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-//   return f.format(d);
-// }
-
-// function makeTicks(firstTimestamp) {
-//   const first = new Date(firstTimestamp);
-//   const second = new Date(firstTimestamp)
-//   second.setMonth(first.getMonth() + 1);
-//   second.setDate(1);
-//   second.setHours(0);
-//   second.setMinutes(0);
-//   second.setSeconds(0);
-//   second.setMilliseconds(0);
-//   const now = new Date();
-//   const ticks = [first];
-//   var next = second;
-//   while (next < now) {
-//     ticks.push(new Date(next));
-//     next = new Date(next.setMonth(next.getMonth() + 1))
-//   }
-//   ticks.push(now);
-//   return ticks.map((d) => d.valueOf());
-// }
 
 const SigRSVChart = () => {
   const containerRef = useRef(0);
@@ -114,93 +87,6 @@ const SigRSVChart = () => {
     </div>
   );
 }
-
-// const SigUSDFlow = () => {
-//   const [data, setData] = useState(undefined);
-//   const [liabs, setLiabs] = useState(undefined);
-
-//   useEffect(() => {
-//     const qry = API_ROOT + "/sigmausd/net-sigusd-flow";
-//     fetch(qry)
-//       .then(res => res.json())
-//       .then(res => setData(res))
-//       .catch(err => console.error(err));
-//   }, []);
-
-//   useEffect(() => {
-//     const qry = API_ROOT + "/sigmausd/liabilities";
-//     fetch(qry)
-//       .then(res => res.json())
-//       .then(res => setLiabs(res))
-//       .catch(err => console.error(err));
-//   }, []);
-
-
-//   if (data === undefined || liabs === undefined) return "";
-
-//   const ticks = makeTicks(data[0].t)
-
-//   return (
-//     <div>
-//       <ResponsiveContainer width="99%" height={250}>
-//         <LineChart margin={{ top: 1, left: 10, right: 50, bottom: 40 }}>
-//           <Line data={data} type="monotone" dataKey="v" dot={false} strokeWidth={1} isAnimationActive={false} />
-//           <Line data={liabs} type="monotone" dataKey="v" dot={false} strokeWidth={1} isAnimationActive={false} stroke="red" />
-//           <CartesianGrid stroke="#ccc" strokeDasharray="2 2" />
-//           <XAxis
-//             dataKey="t"
-//             type="number"
-//             angle={45}
-//             dx={25}
-//             dy={30}
-//             domain={['dataMin', 'dataMax']}
-//             tickFormatter={formatTimestamp}
-//             ticks={ticks}
-//             tickMargin={1} />
-//           <YAxis tickMargin={10} />
-//         </LineChart>
-//       </ResponsiveContainer>
-//     </div>
-//   );
-// }
-
-// const SigRSVFlow = () => {
-//   const [data, setData] = useState(undefined);
-
-//   useEffect(() => {
-//     const qry = API_ROOT + "/sigmausd/net-sigrsv-flow";
-//     fetch(qry)
-//       .then(res => res.json())
-//       .then(res => setData(res))
-//       .catch(err => console.error(err));
-//   }, []);
-
-//   if (data === undefined) return "";
-
-//   const ticks = makeTicks(data[0].t)
-
-//   return (
-//     <div>
-//       <ResponsiveContainer width="99%" height={250}>
-//         <LineChart data={data} margin={{ top: 1, left: 10, right: 50, bottom: 40 }}>
-//           <Line type="monotone" dataKey="v" dot={false} strokeWidth={1} isAnimationActive={false} />
-//           <CartesianGrid stroke="#ccc" strokeDasharray="2 2" />
-//           <XAxis
-//             dataKey="t"
-//             type="number"
-//             angle={45}
-//             dx={25}
-//             dy={30}
-//             domain={['dataMin', 'dataMax']}
-//             tickFormatter={formatTimestamp}
-//             ticks={ticks}
-//             tickMargin={1} />
-//           <YAxis tickMargin={10} />
-//         </LineChart>
-//       </ResponsiveContainer>
-//     </div>
-//   );
-// }
 
 const SigUSD = ({ pegRate, bank }) => {
   if (pegRate === undefined || bank === undefined) return "";
@@ -286,12 +172,9 @@ const SigmaUSD = () => {
         <Card title="SigRSV/ERG">
           <SigRSVChart />
         </Card>
-        {/* <Card title="SigUSD Net Flow">
-          <SigUSDFlow />
+        <Card title="History">
+          <History />
         </Card>
-        <Card title="SigRSV Net Flow">
-          <SigRSVFlow />
-        </Card> */}
       </div>
     </main>
   )

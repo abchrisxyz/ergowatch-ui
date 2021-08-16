@@ -44,7 +44,7 @@ const Latest = ({ data }) => {
   return (
     <div className="stats-group">
       <div className="stat">
-        <div className="label">Rate</div>
+        <div className="label">Price</div>
         <div className="value">{"$" + Number(data.price).toFixed(2)}</div>
       </div>
       <div className="stat">
@@ -118,7 +118,7 @@ const OraclePool = () => {
           <Card title="Pool Settings">
             <PoolDetails />
           </Card>
-          <Card title="Latest Price">
+          <Card title="Latest Posting">
             <Latest data={latest} />
           </Card>
           <Card title="Active Oracles">
