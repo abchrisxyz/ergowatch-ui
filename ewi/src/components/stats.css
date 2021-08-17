@@ -4,17 +4,23 @@
   row-gap: 0.5em;
 }
 
-.stats-group .stat{
+.stats-group .stat {
   display: flex;
   justify-content: space-between;
 }
 
-.stats-group .stat .label{
+.stats-group .stat .label {
   margin-right: 4em;
   font-weight: 400;
 }
 
-.stats-group .stat .value{
+
+.stats-group .stat[data-tip] .label {
+  border-bottom: 1px dashed darkgray;
+}
+
+
+.stats-group .stat .value {
   font-weight: 300;
 }
 

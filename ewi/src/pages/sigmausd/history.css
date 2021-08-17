@@ -18,3 +18,24 @@
   font-weight: 600;
   text-decoration: underline;
 }
+
+.history .ylabels {
+  display: flex;
+  justify-content: flex-end;
+  /* border: 1px solid blue; */
+  /* height: 0px; */
+}
+
+.history .ylabels div {
+  position: relative;
+  /* border: 1px solid red; */
+  width: 10px;
+  height: 0;
+  white-space: nowrap;
+  /* transform: rotate(90deg); */
+  font-size: 0.9em;
+  text-align: center;
+  font-weight: 600;
+  font-family: system-ui;
+}
+

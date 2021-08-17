@@ -1,11 +1,11 @@
-import { useState, useEffect, useLayoutEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import uPlot from "uplot";
 import 'uplot/dist/uPlot.min.css';
 
 import { API_ROOT } from "../../config";
 import './history.css';
 
-function generateTicks(lo, hi, maxTicks = 5) {
+function generateTicks(lo, hi, maxTicks = 4) {
   const normalizedCandidates = [1, 2, 5, 10, 20, 100]
   const interval = hi - lo;
   const power = Math.floor(Math.log10(interval)) - 1;
@@ -15,7 +15,7 @@ function generateTicks(lo, hi, maxTicks = 5) {
     step = nc * order;
     firstTick = Math.ceil(lo / step) * step;
     const lastTick = Math.floor(hi / step) * step;
-    nTicks = ((lastTick - firstTick) / step);
+    nTicks = Math.round((lastTick - firstTick) / step);
     return nTicks > maxTicks;
   });
   return [...Array(nTicks + 1).keys()].map(i => firstTick + i * step);
@@ -36,16 +36,24 @@ function generateShiftConfig(series) {
 
   const tickFormatters = [
     (v) => "$" + v.toFixed(2), // Oracle price
-    (v) => (v * 10 ** (-6)).toFixed(0) + "M", // Circ. SigUSD
+    (v) => (v * 10 ** (-6)).toFixed(3) + "M", // Liabs
+    (v) => (v * 10 ** (-6)).toFixed(2) + "M", // Circ. SigUSD
+    (v) => v.toFixed(6), // RSV price
+    (v) => (v * 10 ** (-6)).toFixed(3) + "M", // Equity
     (v) => (v * 10 ** (-6)).toFixed(0) + "M", // Circ. SigRSV
+    (v) => (v).toFixed(0) + "%", // RR
     (v) => (v * 10 ** (-6)).toFixed(2) + "M", // Reserves
   ];
 
   const legendFormatters = [
     (v) => "$" + v.toFixed(2), // Oracle price
+    (v) => Number(v.toFixed(0)).toLocaleString('en') + " ERG", // Liabs
     (v) => Number(v.toFixed(0)).toLocaleString('en'), // Circ. SigUSD
-    (v) => v,//Number(v.toFixed(0)).toLocaleString('en'), // Circ. SigRSV
-    (v) => Number(v.toFixed(0)).toLocaleString('en'), // Reserves
+    (v) => v.toFixed(6), // RSV price
+    (v) => Number(v.toFixed(0)).toLocaleString('en') + " ERG", // Equity
+    (v) => Number(v.toFixed(0)).toLocaleString('en'), // Circ. SigRSV
+    (v) => Number(v.toFixed(0)).toLocaleString('en') + "%", // RR
+    (v) => Number(v.toFixed(0)).toLocaleString('en') + " ERG", // Reserves
   ];
 
   const fillTo = (u, seriesIdx) => inc * (seriesIdx - 1) + space * (seriesIdx - 1);
@@ -111,116 +119,193 @@ function generateShiftConfig(series) {
 }
 
 
-const HistoryChart = ({ window }) => {
+const UPlot = ({ options, data, width }) => {
   const divRef = useRef(null);
   const plotRef = useRef(null);
-  const [series, setSeries] = useState(undefined);
-  const [chartWidth, setChartWidth] = useState(0);
+  const [chartWidth, setChartWidth] = useState(500);
 
   useEffect(() => {
+    // console.log('create')
+    plotRef.current = new uPlot(Object.assign(options, { width: chartWidth }), data, divRef.current);
+
+    return () => {
+      // console.log('destroy')
+      plotRef.current.destroy();
+      plotRef.current = null;
+    };
+  }, [options, data, chartWidth]);
+
+  useLayoutEffect(() => {
+    if (divRef.current != null) {
+      // console.log('observer')
+      new ResizeObserver(entries => {
+        if (entries.length === 0 || entries[0].target !== divRef.current) {
+          return;
+        }
+        const newRect = entries[0].contentRect;
+        setChartWidth(newRect.width - 25);
+      }).observe(divRef.current);
+    }
+  }, []);
+
+  return <div ref={divRef}></div>;
+}
+
+
+const HistoryChart = ({ window }) => {
+  const [options, setOptions] = useState(undefined);
+  const [data, setData] = useState(undefined);
+
+  useEffect(() => {
+    setData(undefined);
     const qry = API_ROOT + `/sigmausd/history/${window}`;
-    console.log('qry', window)
     fetch(qry)
       .then(res => res.json())
       .then(res => {
-        setSeries([res.timestamps, res.oracle_prices, res.circ_sigusd, res.circ_sigrsv, res.reserves]);
+        const liabs = res.circ_sigusd.map((c, i) => c / res.oracle_prices[i]);
+        const equity = res.reserves.map((r, i) => r - liabs[i]);
+        const rsv_price = res.circ_sigrsv.map((c, i) => equity[i] / c);
+        const rr = equity.map((e, i) => liabs[i] > 0 ? e / liabs[i] * 100 + 100 : res.reserves[i] * 100 / res.oracle_prices[i]);
+        const series = [
+          res.timestamps,
+          res.oracle_prices,
+          liabs,
+          res.circ_sigusd,
+          rsv_price,
+          equity,
+          res.circ_sigrsv,
+          rr,
+          res.reserves,
+        ];
+        const shifted = generateShiftConfig(series);
+        const options = {
+          width: 0, // will be set by UPlot
+          height: 600,
+          scales: {
+            x: {
+              time: true,
+            },
+            y: {
+              range: shifted.range,
+            },
+          },
+          axes: [
+            {},
+            {
+              size: 70,
+              values: shifted.values,
+              splits: shifted.splits,
+            }
+          ],
+          series: [
+            {},
+            {
+              label: 'Oracle Price',
+              stroke: "rgb(42, 45, 52)",
+              width: 1,
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+            {
+              label: 'Liabilities',
+              // stroke: "rgb(249, 65, 68)",
+              // fill: "rgba(249, 65, 68, 0.3)",
+              stroke: "rgba(47, 94, 246, 0.8)",
+              fill: "rgba(47, 94, 246, 0.5)",
+              width: 1,
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+            {
+              label: 'Circ. SigUSD',
+              stroke: "rgba(47, 94, 246, 0.8)",
+              fill: "rgba(47, 94, 246, 0.5)",
+              width: 1,
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+            {
+              label: 'SigRSV price',
+              stroke: "rgb(42, 45, 52)",
+              width: 1,
+              markers: { show: false },
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+            {
+              label: 'Equity',
+              stroke: "rgba(2, 167, 114, 0.8)",
+              fill: "rgba(11, 252, 174, 0.5)",
+              width: 1,
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+            {
+              label: 'Circ. SigRSV',
+              stroke: "rgba(2, 167, 114, 0.8)",
+              fill: "rgba(11, 252, 174, 0.5)",
+              width: 1,
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+            {
+              label: 'RR',
+              stroke: "rgb(42, 45, 52)",
+              fill: "rgba(42, 45, 52, 0.3)",
+              width: 1,
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+            {
+              label: 'Reserves',
+              stroke: "rgb(42, 45, 52)",
+              fill: "rgba(42, 45, 52, 0.3)",
+              width: 1,
+              fillTo: shifted.fillTo,
+              value: shifted.value,
+            },
+          ]
+        };
+        const data = shifted.transformData(series);
+        setOptions(options);
+        setData(data);
       })
       .catch(err => console.error(err));
   }, [window]);
 
-  useLayoutEffect(() => {
-    if (series === undefined) return;
-    console.log('observer')
-    new ResizeObserver(entries => {
-      if (entries.length === 0 || entries[0].target !== divRef.current) {
-        return;
-      }
-      const newRect = entries[0].contentRect;
-      setChartWidth(newRect.width - 5);
-    }).observe(divRef.current);
-  }, [series]);
-
-  const shifted = useMemo(() => generateShiftConfig(series), [series]);
-
-  if (series === undefined) return "Loading...";
-
-  const options = {
-    width: chartWidth,
-    height: 400,
-    scales: {
-      x: {
-        time: true,
-      },
-      y: {
-        range: shifted.range,
-      },
-    },
-    axes: [
-      {},
-      {
-        size: 70,
-        values: shifted.values,
-        splits: shifted.splits,
-      }
-    ],
-    series: [
-      {},
-      {
-        label: 'Oracle Price',
-        stroke: "gray",
-        width: 1,
-        fillTo: shifted.fillTo,
-        value: shifted.value,
-      },
-      {
-        label: 'Circ. SigUSD',
-        stroke: "red",
-        width: 1,
-        fill: "rgba(255, 0, 0, 0.3)",
-        fillTo: shifted.fillTo,
-        value: shifted.value,
-      },
-      {
-        label: 'Circ. SigRSV',
-        stroke: "green",
-        width: 1,
-        fill: "rgba(0, 255, 0, 0.3)",
-        fillTo: shifted.fillTo,
-        value: shifted.value,
-      },
-      {
-        label: 'Reserves',
-        stroke: "blue",
-        width: 1,
-        fill: "rgba(0, 0, 255, 0.3)",
-        fillTo: shifted.fillTo,
-        value: shifted.value,
-      },
-    ]
-  }
-
-  if (plotRef.current != null) {
-    console.log('destroy')
-    plotRef.current.destroy();
-    plotRef.current = null;
-  }
-  plotRef.current = new uPlot(options, shifted.transformData(series), divRef.current);
+  if (data === undefined) return <div style={{ height: "610px" }}>Loading...</div>;
 
   return (
-    <div ref={divRef}>
+    <div>
+      <YLabels labels={['Reserves', 'RR', 'Circ. RSV', 'Equity', 'RSV Price', 'Circ. USD', 'Liabilities', 'Oracle']} />
+      <UPlot options={options} data={data} />
     </div>
   );
 }
 
+
+const YLabels = ({ labels }) => {
+  return (
+    <div className="ylabels">
+      {/* {labels.map((lbl, i) => <div key={lbl} style={{ right: (i - 7) * 60 - 10 + 'px', top: 50 + i * 67 + 'px' }}>{lbl}</div>)} */}
+      {/* {labels.map((lbl, i) => <div key={lbl} style={{ right: (i - 7) * 10 + 10 + 'px', top: 50 + i * 67 + 'px' }}>{lbl}</div>)} */}
+      {labels.map((lbl, i) => <div key={lbl} style={{ right: (i - 7) * 10 + 35 + 'px', top: 40 + i * 67 + 'px' }}>{lbl}</div>)}
+
+    </div>
+  )
+}
+
+
 const History = () => {
-  const [window, setWindow] = useState('5d');
+  const [window, setWindow] = useState('1d');
   return (
     <div className="history">
       <ul className="window-selector">
-        {/* <li className={window === '1d' ? 'active' : null}>1d</li> */}
+        <li className={window === '1d' ? 'active' : null} onClick={() => setWindow('1d')}>1d</li>
         <li className={window === '5d' ? 'active' : null} onClick={() => setWindow('5d')}>5d</li>
         <li className={window === '30d' ? 'active' : null} onClick={() => setWindow('30d')}>30d</li>
-        {/* <li className={window === 'all' ? 'active' : null}>all</li> */}
+        <li className={window === '90d' ? 'active' : null} onClick={() => setWindow('90d')}>90d</li>
+        <li className={window === 'all' ? 'active' : null} onClick={() => setWindow('all')}>all</li>
       </ul>
       <HistoryChart window={window} />
     </div>

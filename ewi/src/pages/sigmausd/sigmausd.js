@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { createChart, CrosshairMode } from 'lightweight-charts';
+import ReactTooltip from 'react-tooltip';
 
 import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";
@@ -88,11 +89,13 @@ const SigRSVChart = () => {
   );
 }
 
-const SigUSD = ({ pegRate, bank }) => {
-  if (pegRate === undefined || bank === undefined) return "";
+const SigUSD = ({ pegRate, bank, balanceData }) => {
+  if (pegRate === undefined || bank === undefined || balanceData === undefined) return "";
   const price = fromNano(calcSCRate(bank, pegRate));
   const mintable = calcMintableSC(bank, pegRate);
   const redeemable = bank.scCirc;
+  const liabilities = fromNano(calcLiabilities(bank, pegRate));
+  const roi = (-balanceData.net_sc_erg + liabilities) / balanceData.cum_sc_erg_in * 100;
   return (
     <StatGroup>
       <Stat label="Circulating" value={bank.scCirc.toLocaleString('en')} />
@@ -100,15 +103,18 @@ const SigUSD = ({ pegRate, bank }) => {
       <Stat label="Rate" value={`1 ERG = ${(1 / price).toFixed(2)} SigUSD`} />
       <Stat label="Mintable" value={Number(mintable.toFixed(2)).toLocaleString('en')} />
       <Stat label="Redeemable" value={Number(redeemable.toFixed(2)).toLocaleString('en')} />
+      <Stat label="Average ROI" value={Number(roi.toFixed(2)).toLocaleString('en') + " %"} tip="All time average ROI,<br/>including current liabilities" />
     </StatGroup>
   );
 }
 
-const SigRSV = ({ pegRate, bank }) => {
-  if (pegRate === undefined || bank === undefined) return "";
+const SigRSV = ({ pegRate, bank, balanceData }) => {
+  if (pegRate === undefined || bank === undefined || balanceData === undefined) return "";
   const price = fromNano(calcRCRate(bank, pegRate));
   const mintable = calcMintableRC(bank, pegRate);
   const redeemable = calcRedeemableRC(bank, pegRate);
+  const liabilities = fromNano(calcLiabilities(bank, pegRate));
+  const roi = (balanceData.net_sc_erg - liabilities) / balanceData.cum_rc_erg_in * 100;
   return (
     <StatGroup>
       <Stat label="Circulating" value={bank.rcCirc.toLocaleString('en')} />
@@ -116,6 +122,7 @@ const SigRSV = ({ pegRate, bank }) => {
       <Stat label="Rate" value={`1 ERG = ${(1 / price).toFixed(2)} SigRSV`} />
       <Stat label="Mintable" value={Number(mintable.toFixed(2)).toLocaleString('en')} />
       <Stat label="Redeemable" value={Number(redeemable.toFixed(2)).toLocaleString('en')} />
+      <Stat label="Average ROI" value={Number(roi.toFixed(2)).toLocaleString('en') + " %"} tip="All time average ROI,<br/>including current equity" />
     </StatGroup>
   );
 }
@@ -135,9 +142,11 @@ const Reserve = ({ pegRate, bank }) => {
   );
 }
 
+
 const SigmaUSD = () => {
   const [bank, setBank] = useState(undefined);
   const [pegRate, setPegRate] = useState(undefined);
+  const [balanceData, setBalanceData] = useState(undefined)
 
   useEffect(() => {
     const qry = API_ROOT + "/sigmausd/state";
@@ -146,6 +155,12 @@ const SigmaUSD = () => {
       .then(res => {
         setBank(createBank(res.circ_sigusd, res.circ_sigrsv, res.reserves));
         setPegRate(res.peg_rate_nano);
+        setBalanceData({
+          net_sc_erg: res.net_sc_erg, // total erg into - total erg out of contract from usd txs
+          net_rc_erg: res.net_rc_erg, // total erg into - total erg out of contract from rsv txs
+          cum_sc_erg_in: res.cum_sc_erg_in, // total erg into contract from usd txs
+          cum_rc_erg_in: res.cum_rc_erg_in, // total erg into contract from rsv txs
+        });
       })
       .catch(err => console.error(err));
   }, []);
@@ -160,10 +175,10 @@ const SigmaUSD = () => {
       <div className="sigmausd">
         <div className="card-group">
           <Card title="SigUSD">
-            <SigUSD bank={bank} pegRate={pegRate} />
+            <SigUSD bank={bank} pegRate={pegRate} balanceData={balanceData} />
           </Card>
           <Card title="SigRSV">
-            <SigRSV bank={bank} pegRate={pegRate} />
+            <SigRSV bank={bank} pegRate={pegRate} balanceData={balanceData} />
           </Card>
           <Card title="Reserves">
             <Reserve bank={bank} pegRate={pegRate} />

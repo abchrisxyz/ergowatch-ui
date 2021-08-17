@@ -127,7 +127,7 @@ const Emission = () => {
         <Link to="/emission">Emission</Link>
       </BreadCrumbs>
       <div className="emission">
-        <Card title="Settings">
+        <Card title="Parameters">
           <Settings />
         </Card>
         <Card title="Current Epoch">

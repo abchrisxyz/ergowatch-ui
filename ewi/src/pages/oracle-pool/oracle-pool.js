@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis } from "recharts";
+import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Label } from "recharts";
 
 import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";
@@ -63,11 +63,13 @@ const Epochs = ({ data }) => {
   if (data.length === 0) return "";
   return (
     <div>
-      <ResponsiveContainer width="99%" height={250}>
-        <LineChart data={data} margin={{ top: 1, left: -25, right: 0, bottom: 0 }}>
+      <ResponsiveContainer width="99%" height={275}>
+        <LineChart data={data} margin={{ top: 1, left: -25, right: 0, bottom: 25 }}>
           <Line type="monotone" dataKey="n" dot={{ r: 1 }} strokeWidth={1} isAnimationActive={false} />
           <CartesianGrid stroke="#ccc" strokeDasharray="2 2" vertical={false} />
-          <XAxis dataKey="h" interval="preserveStartEnd" tickMargin={10} />
+          <XAxis dataKey="h" interval="preserveStartEnd" tickMargin={10}>
+            <Label value="Last 100 posting heights" offset={-20} position="insideBottom" />
+          </XAxis>
           <YAxis tickMargin={10} />
         </LineChart>
       </ResponsiveContainer>
@@ -125,7 +127,7 @@ const OraclePool = () => {
             <PoolStatus oracleStats={stats} />
           </Card>
         </div>
-        <Card title="Nb. Of Blocks Between Updates">
+        <Card title="Nb. Of Blocks Between Postings">
           <Epochs data={epochs} />
         </Card>
         <Card title="Oracle Stats">
