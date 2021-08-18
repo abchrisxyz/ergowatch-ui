@@ -16,7 +16,14 @@ const Home = () => {
         <a className="item" href="/oracle-pools"><h2>Oracle Pools</h2></a>
         <a className="item" href="/sigmausd"><h2>SigmaUSD</h2></a>
       </div>
-    </main>
+      <div className="tmp-footer">
+        <a href="https://ergoplatform.org/en/">Ergo Platform</a>
+        -
+        <a href="hhttps://explorer.ergoplatform.com/en/">Ergo Explorer</a>
+        -
+        <a href="https://github.com/abchrisxyz/ergowatch">Github</a>
+      </div>
+    </main >
   );
 }
 

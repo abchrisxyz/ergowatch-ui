@@ -56,3 +56,17 @@
   color: inherit;
   /* font-size: 20px; */
 }
+
+.tmp-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 100px 0px;
+  column-gap: 1em;;
+}
+
+.tmp-footer a {
+  text-decoration: underline;
+  color: var(--text-color);
+}
