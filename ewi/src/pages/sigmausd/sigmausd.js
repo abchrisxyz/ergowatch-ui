@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { createChart, CrosshairMode } from 'lightweight-charts';
-import ReactTooltip from 'react-tooltip';
 
 import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";

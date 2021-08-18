@@ -6,6 +6,10 @@ import { API_ROOT } from "../../config";
 import './history.css';
 
 function generateTicks(lo, hi, maxTicks = 4) {
+  if (lo === hi) {
+    console.log(lo, hi)
+    return lo < 0 ? [lo, 0] : [0, hi];
+  }
   const normalizedCandidates = [1, 2, 5, 10, 20, 100]
   const interval = hi - lo;
   const power = Math.floor(Math.log10(interval)) - 1;
@@ -67,9 +71,10 @@ function generateShiftConfig(series) {
   // For each series, custom mappers to convert
   // values to and from y coordinates
   const mappers = stats.map((ss, idx) => {
-    const d = ss.hi - ss.lo;
+    const d = ss.lo === ss.hi ? ss.hi : ss.hi - ss.lo;
     const f = inc / d
     const h = inc + space;
+    console.log(d, f, h)
     return {
       to: (v) => (v - ss.lo) * f + h * idx,
       from: (v) => ss.lo + (v - h * idx) / f,
@@ -266,6 +271,7 @@ const HistoryChart = ({ window }) => {
             },
           ]
         };
+        console.log(res)
         const data = shifted.transformData(series);
         setOptions(options);
         setData(data);
