@@ -131,12 +131,15 @@ const Reserve = ({ pegRate, bank }) => {
   const liabilities = fromNano(calcLiabilities(bank, pegRate));
   const equity = fromNano(calcEquity(bank, pegRate));
   const rr = calcReserveRatio(bank, pegRate);
+  const price = fromNano(calcSCRate(bank, pegRate));
+  const tvl = fromNano(bank.baseReserves) / price;
   return (
     <StatGroup>
       <Stat label="Total" value={`${Number(fromNano(bank.baseReserves).toFixed(2)).toLocaleString('en')} ERG`} />
       <Stat label="Liabilities" value={`${Number(liabilities.toFixed(2)).toLocaleString('en')} ERG`} />
       <Stat label="Equity" value={`${Number(equity.toFixed(2)).toLocaleString('en')} ERG`} />
       <Stat label="Ratio (RR)" value={`${rr.toFixed(0)} %`} />
+      <Stat label="TVL" value={`$${Number(tvl.toFixed(0)).toLocaleString('en')}`} />
     </StatGroup>
   );
 }
