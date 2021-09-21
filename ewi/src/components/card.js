@@ -1,9 +1,9 @@
 import './card.css';
 
-const Card = ({ title, children }) => {
+const Card = ({ title, option, children }) => {
   return (
     <div className="card">
-      <h2>{title}</h2>
+      <h2>{title} {option}</h2>
       {children}
     </div>
   );

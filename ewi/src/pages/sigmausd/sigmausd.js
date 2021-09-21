@@ -1,92 +1,16 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { createChart, CrosshairMode } from 'lightweight-charts';
+
 
 import BreadCrumbs from "../../components/breadcrumbs";
 import Card from "../../components/card";
 import { StatGroup, Stat } from "../../components/stats";
 import History from "./history";
+import SigRSVChart from "./sigrsvchart";
 import { createBank, fromNano, calcSCRate, calcRCRate, calcMintableSC, calcMintableRC, calcRedeemableRC, calcLiabilities, calcEquity, calcReserveRatio } from "./ageusd";
 import { API_ROOT } from "../../config";
 import './sigmausd.css';
 
-const SigRSVChart = () => {
-  const containerRef = useRef(0);
-  const chartRef = useRef(0);
-  const [seriesData, setSeriesData] = useState(undefined);
-
-  useEffect(() => {
-    const qry = API_ROOT + "/sigmausd/ohlc/sigrsv/1d";
-    fetch(qry)
-      .then(res => res.json())
-      .then(res => setSeriesData(res))
-      .catch(err => console.error(err));
-  }, []);
-
-  useLayoutEffect(() => {
-    if (seriesData === undefined) return;
-
-    const chart = createChart(chartRef.current, {
-      width: 600,
-      height: 300,
-      layout: {
-        backgroundColor: 'rgb(250 250 250)',
-        textColor: '#131021',
-      },
-      rightPriceScale: {
-        borderColor: 'gray',
-      },
-      timeScale: {
-        borderColor: 'gray',
-        fixLeftEdge: true,
-        lockVisibleTimeRangeOnResize: true,
-      },
-      crosshair: {
-        mode: CrosshairMode.Normal,
-      },
-      priceFormat: {
-        type: 'custom',
-        minMove: 0.00000001,
-        // precision: 8,
-        formatter: (price) => parseFloat(price).toFixed(6),
-      },
-      // priceScale: {
-      //   autoScale: false
-      // },
-      localization: {
-        locale: 'en-US',
-        priceFormatter: (price) => parseFloat(price).toFixed(6)
-      },
-    });
-
-    const series = chart.addCandlestickSeries();
-    series.setData(seriesData);
-
-    series.applyOptions({
-      priceFormat: {
-        precision: 6,
-        minMove: 0.000001,
-      },
-    });
-
-    // chart.timeScale().fitContent();
-
-    new ResizeObserver(entries => {
-      if (entries.length === 0 || entries[0].target !== containerRef.current) {
-        return;
-      }
-      const newRect = entries[0].contentRect;
-      chart.applyOptions({ width: newRect.width - 10 });
-    }).observe(containerRef.current);
-
-  }, [seriesData]);
-
-  return (
-    <div ref={containerRef}>
-      <div ref={chartRef}></div>
-    </div>
-  );
-}
 
 const SigUSD = ({ pegRate, bank, balanceData }) => {
   if (pegRate === undefined || bank === undefined || balanceData === undefined) return "";
@@ -144,11 +68,11 @@ const Reserve = ({ pegRate, bank }) => {
   );
 }
 
-
 const SigmaUSD = () => {
   const [bank, setBank] = useState(undefined);
   const [pegRate, setPegRate] = useState(undefined);
   const [balanceData, setBalanceData] = useState(undefined)
+  const [invertErgRsvChart, setInvertErgRsvChart] = useState(false);
 
   useEffect(() => {
     const qry = API_ROOT + "/sigmausd/state";
@@ -186,8 +110,11 @@ const SigmaUSD = () => {
             <Reserve bank={bank} pegRate={pegRate} />
           </Card>
         </div>
-        <Card title="SigRSV/ERG">
-          <SigRSVChart />
+        <Card
+          title={invertErgRsvChart ? "ERG/SigRSV" : "SigRSV/ERG"}
+          option={<button onClick={() => setInvertErgRsvChart(!invertErgRsvChart)}>&#8596;</button>}
+        >
+          <SigRSVChart inverted={invertErgRsvChart} />
         </Card>
         <Card title="History">
           <History />

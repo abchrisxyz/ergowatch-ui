@@ -8,4 +8,8 @@ div.card > div.flex {
 
 div.card > h2 {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  column-gap: 0.5em;
 }
