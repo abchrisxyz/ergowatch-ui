@@ -1,0 +1,34 @@
+.on-chain-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.on-chain-metrics .preview {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255 255 255);
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+  color: var(--text-color)
+}
+
+.on-chain-metrics .preview h2 {
+  margin-top: 1em;
+}
+.on-chain-metrics .preview .item {
+  color: #ff4221;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.on-chain-metrics a {
+  text-decoration: none;
+}

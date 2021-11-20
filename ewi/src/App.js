@@ -9,6 +9,10 @@ import {
 
 import Home from './pages/home';
 import Emission from './pages/emission';
+import Metrics from './pages/metrics';
+import Age from './pages/metrics/age';
+import Addresses from './pages/metrics/addresses';
+import Distribution from './pages/metrics/distribution';
 import OraclePools from './pages/oracle-pools';
 import OraclePool from './pages/oracle-pool';
 import SigmaUSD from './pages/sigmausd';
@@ -81,6 +85,11 @@ function App() {
           <nav>
             <div className="flex-col">
               <NavLink onClick={() => hideNav()} exact to="/emission">Emission</NavLink>
+              <NavLink onClick={() => hideNav()} exact to="/metrics">Metrics</NavLink>
+              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/addresses">Addresses</NavLink>
+              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/distribution">Distribution</NavLink>
+              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/age">Supply Age</NavLink>
+              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/utxos">UTXO's</NavLink>
               <NavLink onClick={() => hideNav()} exact to="/oracle-pools">Oracle Pools</NavLink>
               <NavLink onClick={() => hideNav()} exact to="/sigmausd">SigmaUSD</NavLink>
             </div>
@@ -89,6 +98,18 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <Home />
+            </Route>
+            <Route path="/metrics" exact>
+              <Metrics />
+            </Route>
+            <Route path="/metrics/addresses">
+              <Addresses />
+            </Route>
+            <Route path="/metrics/distribution">
+              <Distribution />
+            </Route>
+            <Route path="/metrics/age">
+              <Age />
             </Route>
             <Route path="/emission">
               <Emission />
