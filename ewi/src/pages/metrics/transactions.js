@@ -23,7 +23,7 @@ const Transactions = () => {
         />
       </Card>
       <Card title="Description">
-        <p>Total number of transactions.</p>
+        <p>Total number of transactions per day.</p>
         <p>Each datapoint on the graph represents the preceding 24 hours, except for the last one showing current total since previous datapoint.</p>
       </Card>
     </MetricTemplate>
