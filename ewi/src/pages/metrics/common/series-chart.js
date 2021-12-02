@@ -7,6 +7,7 @@ import { API_ROOT } from "../../../config";
 
 import './series-chart.css';
 
+
 const SeriesChart = ({ id, api, seriesOptions, initialOptions, toFixed = 0, relative = false, relativeTo = null, setRelative, yLabel = null, ySize = 80, units = '', markLast }) => {
   // relative: scales values to data[relativeTo]
   // markLast: color of last datapoint
@@ -80,7 +81,6 @@ const SeriesChart = ({ id, api, seriesOptions, initialOptions, toFixed = 0, rela
     scales: {
       x: {
         time: true,
-        range: [data.timestamps[0], data.timestamps.at(-1) + 3600 * 2]
       },
       y: {
         distr: logScale ? 3 : 1,
