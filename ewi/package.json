@@ -12,6 +12,7 @@
     "react-multi-select-component": "^4.1.14",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-super-responsive-table": "^5.2.0",
     "react-tooltip": "^4.2.21",
     "recharts": "^2.0.10",
     "uplot": "^1.6.14",

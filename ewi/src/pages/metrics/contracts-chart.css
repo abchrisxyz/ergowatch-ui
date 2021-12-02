@@ -1,0 +1,21 @@
+#address-chart .series-select .options li:nth-child(2),
+#address-chart .series-select .options li:nth-child(3),
+#address-chart .series-select .options li:nth-child(4) {
+  color: #ff4221;
+}
+
+#address-chart .series-select .options li:nth-child(5),
+#address-chart .series-select .options li:nth-child(6),
+#address-chart .series-select .options li:nth-child(7) {
+  color: #02a772;
+}
+
+#address-chart .series-select .options li:nth-child(8),
+#address-chart .series-select .options li:nth-child(9),
+#address-chart .series-select .options li:nth-child(10) {
+  color: #2f5ef6;
+}
+
+#address-chart .series-select .options li:nth-child(11) {
+  color: #f1009d;
+}

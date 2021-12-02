@@ -12,7 +12,13 @@ import Emission from './pages/emission';
 import Metrics from './pages/metrics';
 import Age from './pages/metrics/age';
 import Addresses from './pages/metrics/addresses';
+import Contracts from './pages/metrics/contracts';
 import Distribution from './pages/metrics/distribution';
+import TVL from './pages/metrics/tvl';
+import Cexs from './pages/metrics/cexs';
+import TransferVolume from './pages/metrics/transfer-volume';
+import Transactions from './pages/metrics/transactions';
+import UTXOs from './pages/metrics/utxos';
 import OraclePools from './pages/oracle-pools';
 import OraclePool from './pages/oracle-pool';
 import SigmaUSD from './pages/sigmausd';
@@ -44,8 +50,6 @@ const SyncStatus = () => {
       .catch(err => console.error(err));
   }, [location]);
 
-
-
   return (
     <div id="sync-status">
       <div>
@@ -60,6 +64,10 @@ const SyncStatus = () => {
   );
 }
 
+
+const MatchLocation = ({ location, children }) => {
+  return useLocation().pathname.startsWith(location) ? children : null;
+}
 
 function App() {
   const [showNav, setShowNav] = useState(false);
@@ -86,10 +94,17 @@ function App() {
             <div className="flex-col">
               <NavLink onClick={() => hideNav()} exact to="/emission">Emission</NavLink>
               <NavLink onClick={() => hideNav()} exact to="/metrics">Metrics</NavLink>
-              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/addresses">Addresses</NavLink>
-              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/distribution">Distribution</NavLink>
-              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/age">Supply Age</NavLink>
-              <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/utxos">UTXO's</NavLink>
+              <MatchLocation location="/metrics">
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/addresses">Addresses</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/contracts">Contracts</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/distribution">Distribution</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/tvl">TVL</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/cexs">Exchanges</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/age">Supply Age</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/transfer-volume">Transfer Volume</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/transactions">Transactions</NavLink>
+                <NavLink onClick={() => hideNav()} exact className="sub-navlink" to="/metrics/utxos">UTXO's</NavLink>
+              </MatchLocation>
               <NavLink onClick={() => hideNav()} exact to="/oracle-pools">Oracle Pools</NavLink>
               <NavLink onClick={() => hideNav()} exact to="/sigmausd">SigmaUSD</NavLink>
             </div>
@@ -105,11 +120,29 @@ function App() {
             <Route path="/metrics/addresses">
               <Addresses />
             </Route>
+            <Route path="/metrics/age">
+              <Age />
+            </Route>
+            <Route path="/metrics/cexs">
+              <Cexs />
+            </Route>
+            <Route path="/metrics/contracts">
+              <Contracts />
+            </Route>
             <Route path="/metrics/distribution">
               <Distribution />
             </Route>
-            <Route path="/metrics/age">
-              <Age />
+            <Route path="/metrics/TVL">
+              <TVL />
+            </Route>
+            <Route path="/metrics/transfer-volume">
+              <TransferVolume />
+            </Route>
+            <Route path="/metrics/transactions">
+              <Transactions />
+            </Route>
+            <Route path="/metrics/utxos">
+              <UTXOs />
             </Route>
             <Route path="/emission">
               <Emission />

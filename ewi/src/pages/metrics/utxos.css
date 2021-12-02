@@ -1,0 +1,27 @@
+.dusty-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em; 
+}
+
+.dusty-list .header {
+  font-weight: bold;
+}
+
+.dusty-list > div {
+  display: grid;
+  grid-template-columns: 1fr 5fr 5fr;
+  max-width: 300px;
+  column-gap: 12px;
+  align-items: end;
+}
+
+.dusty-list a {
+  text-decoration: none;
+  color: #0078ff;
+  font-family: monospace;
+}
+
+.dusty-list .right {
+  justify-self: end;
+}

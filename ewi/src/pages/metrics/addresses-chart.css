@@ -1,0 +1,21 @@
+#addresses-chart .series-select .options li:nth-child(2),
+#addresses-chart .series-select .options li:nth-child(3),
+#addresses-chart .series-select .options li:nth-child(4) {
+  color: #ff4221;
+}
+
+#addresses-chart .series-select .options li:nth-child(5),
+#addresses-chart .series-select .options li:nth-child(6),
+#addresses-chart .series-select .options li:nth-child(7) {
+  color: #02a772;
+}
+
+#addresses-chart .series-select .options li:nth-child(8),
+#addresses-chart .series-select .options li:nth-child(9),
+#addresses-chart .series-select .options li:nth-child(10) {
+  color: #2f5ef6;
+}
+
+#addresses-chart .series-select .options li:nth-child(11) {
+  color: #f1009d;
+}

@@ -1,0 +1,8 @@
+.change-summary table {
+  text-align: right;
+}
+
+.change-summary th:first-child,
+.change-summary td:first-child {
+  text-align: left;
+}

@@ -1,47 +1,4 @@
-import { Link } from "react-router-dom";
-
-import { AddressLink } from "../../../components/links";
-import BreadCrumbs from "../../../components/breadcrumbs";
-import Card from "../../../components/card";
-import colors from "../../../config/colors";
-import SeriesChart from "../series-chart";
-
-import './distribution.css';
-
-const seriesOptions = [
-  { label: "Top 10", value: "top10", index: 0, color: colors.black },
-  { label: "Top 100", value: "top100", index: 1, color: colors.orange },
-  { label: "Top 1k", value: "top1k", index: 2, color: colors.green },
-  { label: "Top 10k", value: "top10k", index: 3, color: colors.blue },
-  { label: "CEX's", value: "cexs", index: 4, color: colors.pink },
-];
-
-const Distribution = () => {
-  return (
-    <main>
-      <h1>Distribution</h1>
-      <BreadCrumbs>
-        <Link to="/">Home</Link>
-        <Link to="/metrics">Metrics</Link>
-        <Link to="/metrics/distribution">Distribution</Link>
-      </BreadCrumbs>
-      <div className="metrics">
-        <Card title="Summary">
-          <div className="summary">
-
-          </div>
-        </Card>
-      </div>
-      <Card title="Chart">
-        <SeriesChart
-          api="/metrics/distribution/series"
-          seriesOptions={seriesOptions}
-          initialOptions={[0, 1]}
-        />
-      </Card>
-      <Card title="Description">
-        <p>ERG supply in top <i>x</i> addresses.</p>
-        <div>
+<div>
           The following addresses are <i>not</i> included:
           <ul>
             <li>Ergo <AddressLink address="2Z4YBkDsDvQj8BX7xiySFewjitqp2ge9c99jfes2whbtKitZTxdBYqbrVZUvZvKv6aqn9by4kp3LE1c26LCyosFnVnm6b6U1JYvWpYmL2ZnixJbXLjWAWuBThV1D6dLpqZJYQHYDznJCk49g5TUiS4q8khpag2aNmHwREV7JSsypHdHLgJT7MGaw51aJfNubyzSKxZ4AJXFS27EfXwyCLzW1K6GVqwkJtCoPvrcLqmqwacAWJPkmh78nke9H4oT88XmSbRt2n9aWZjosiZCafZ4osUDxmZcc5QVEeTWn8drSraY3eFKe8Mu9MSCcVU">coinbase</AddressLink></li>
@@ -53,10 +10,3 @@ const Distribution = () => {
               and Gate.io (<AddressLink address="9iKFBBrryPhBYVGDKHuZQW7SuLfuTdUJtTPzecbQ5pQQzD4VykC" >1</AddressLink>)</li>
           </ul>
         </div>
-
-      </Card>
-    </main>
-  )
-}
-
-export default Distribution;

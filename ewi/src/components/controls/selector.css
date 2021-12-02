@@ -1,0 +1,26 @@
+ul.selector {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  column-gap: 1em;
+  font-weight: 300;
+  align-self: center;
+  height: 40px;
+  padding: 0px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+ul.selector li {
+  padding: 10px 0px;
+}
+
+ul.selector li:hover {
+  cursor: pointer;
+}
+
+ul.selector li.active {
+  font-weight: 600;
+  color: var(--ergorange);
+}

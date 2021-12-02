@@ -9,6 +9,8 @@
   --idle-color: orange;
   /* --offline-color: #E14A3C; */
   --offline-color: #d2d3d4;
+  --ergorange: #ff5537;
+
 }
 
 * {
