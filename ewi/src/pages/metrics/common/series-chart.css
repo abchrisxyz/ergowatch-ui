@@ -5,18 +5,11 @@
 
 .chart-options {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 1em;
   row-gap: 1em;
-}
-
-@media (min-width: 700px) {
-  .chart-options {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    column-gap: 1em;
-  }
+  flex-wrap: wrap;
 }
 
 .series-select {
