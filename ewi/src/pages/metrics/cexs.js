@@ -38,8 +38,8 @@ const Cexs = () => {
       <Card title="Description">
         <p>ERG supply on <b>known</b>, <b>main</b> exchange addresses.</p>
         <p>
-          Significant changes are more likely due to unmonitored exchange addresses than actual flow to/from exchanges.<br />
-          Data subject to change as more CEX addresses are discovered.
+          Significant jumps are likely the result of untracked exchange addresses and do not necessarily represent actual flow to/from exchanges.<br />
+          Data subject to change as more CEX addresses get tracked.
         </p>
       </Card>
       <Card title="Change Summary">
