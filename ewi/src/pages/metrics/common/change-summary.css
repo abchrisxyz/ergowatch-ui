@@ -1,3 +1,7 @@
+.change-summary {
+  max-width: 800px;
+}
+
 .change-summary table {
   text-align: right;
 }
