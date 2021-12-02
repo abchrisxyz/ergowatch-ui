@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+import { AddressLink } from "../../components/links";
 import Card from "../../components/card";
 import colors from "../../config/colors";
 import SeriesChart from "./common/series-chart";
 import MetricTemplate from "./common/template";
 import ChangeSummary from "./common/change-summary";
+import { API_ROOT } from "../../config";
 
+import "./cexs.css";
 
 const seriesOptions = [
   { label: "All", value: "total", index: 0, color: colors.orange },
@@ -64,9 +67,55 @@ const Cexs = () => {
         />
       </Card>
       <Card title="Known Addresses">
+        <ExchangeAddresses />
       </Card>
     </MetricTemplate>
   )
 }
+
+const cexLogos = {
+  coinex: 'https://www.coinex.com/favicon.ico',
+  gate: 'https://www.gate.io/favicon.ico',
+  kucoin: 'https://assets.staticimg.com/cms/media/7AV75b9jzr9S8H3eNuOuoqj8PwdUjaDQGKGczGqTS.png',
+};
+
+const cexNames = {
+  coinex: 'Coinex',
+  gate: 'Gate.io',
+  kucoin: 'Kucoin',
+};
+
+
+const ExchangeAddresses = () => {
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const qry = API_ROOT + "/metrics/cexs/list";
+    fetch(qry)
+      .then(res => res.json())
+      .then(res => setData(res))
+      .catch(err => console.error(err));
+  }, []);
+
+  return (
+    <div className="cex-list">
+      <div className="rows">
+        <div className="header">
+          <div>Exchange</div>
+          <div>Address</div>
+          <div className="right">Balance*</div>
+        </div>
+        {data.map((r, i) => <div key={i}>
+          <div className="cex"><img src={cexLogos[r.cex]} alt="logo" />{cexNames[r.cex]}</div>
+          <AddressLink address={r.address}><span>{r.address.substring(0, 8)}</span></AddressLink>
+          <div className="right">{Number((r.balance).toFixed(0)).toLocaleString('en')} ERG</div>
+        </div>
+        )}
+      </div>
+      <div className="info">* Balances as of last snapshot (around 12am UTC)</div>
+    </div>
+  );
+}
+
 
 export default Cexs;

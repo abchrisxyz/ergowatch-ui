@@ -1,0 +1,48 @@
+.cex-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em; 
+}
+
+.cex-list .rows {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em; 
+}
+
+.cex-list .header {
+  font-weight: bold;
+}
+
+.cex-list .rows > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  max-width: 300px;
+  column-gap: 12px;
+  align-items: end;
+}
+
+.cex-list .cex {
+  display: flex;
+  align-items: center;
+}
+
+.cex-list .cex img {
+  height: 1em;
+  margin-right: 0.5em;
+}
+
+.cex-list a {
+  text-decoration: none;
+  color: #0078ff;
+  font-family: monospace;
+}
+
+.cex-list .right {
+  justify-self: end;
+}
+
+.cex-list .info {
+  font-style: italic;
+  font-size: 0.9em;
+}
