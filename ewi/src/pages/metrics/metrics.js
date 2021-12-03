@@ -28,7 +28,7 @@ const Metrics = () => {
         setContracts(Number(res.total_contracts));
         setTop100Prc(Number(res.top100_supply_fraction * 100.));
         setTVLPrc(Number(res.contracts_supply_fraction * 100.));
-        setCexs(Number(res.cexs_supply / 10 ** 9));
+        setCexs(Number(res.cexs_supply_fraction * 100));
         setMeanAge(Number(res.mean_age_days));
         setTransferVolume(Number(res.transferred_value_24h) / 10 ** 9);
         setTransactions(Number(res.transactions_24h));
@@ -81,7 +81,7 @@ const Metrics = () => {
           <div className="preview">
             <h2>Exchanges</h2>
             <div className="item">
-              On CEX's: {cexs ? Number(cexs.toFixed(0)).toLocaleString('en') : '...'} ERG
+              Supply: {cexs ? Number(cexs.toFixed(2)).toLocaleString('en') : '...'}%
             </div>
           </div>
         </Link>
