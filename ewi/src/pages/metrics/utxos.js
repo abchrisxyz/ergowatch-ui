@@ -60,6 +60,7 @@ const UTXOs = () => {
       </Card>
       <Card title="Description">
         <p>Total number of unspent boxes.</p>
+        <p>Updates every 24h.</p>
       </Card>
       <Card title="Change Summary">
         <ChangeSummary

@@ -44,6 +44,7 @@ const Cexs = () => {
           Significant jumps are likely the result of untracked exchange addresses and do not necessarily represent actual flow to/from exchanges.<br />
           Data subject to change as more CEX addresses get tracked.
         </p>
+        <p>Updates every 24h.</p>
       </Card>
       <Card title="Change Summary">
         <ChangeSummary

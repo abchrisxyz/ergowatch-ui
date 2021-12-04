@@ -37,7 +37,7 @@ const Addresses = () => {
       </Card>
       <Card title="Description">
         <p>Number of unique P2PK addresses by minimum balance.</p>
-        <p>Updates every 24h, first block of day UTC.</p>
+        <p>Updates every 24h.</p>
       </Card>
       <Card title="Change Summary">
         <ChangeSummary

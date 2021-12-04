@@ -39,6 +39,7 @@ const Distribution = () => {
       </Card>
       <Card title="Description">
         <p>ERG supply in top <i>x</i> contract addresses, excluding the Ergo <AddressLink address="4L1ktFSzm3SH1UioDuUf5hyaraHird4D2dEACwQ1qHGjSKtA6KaNvSzRCZXZGf9jkfNAEC1SrYaZmCuvb2BKiXk5zW9xuvrXFT7FdNe2KqbymiZvo5UQLAm5jQY8ZBRhTZ4AFtZa1UF5nd4aofwPiL7YkJuyiL5hDHMZL1ZnyL746tHmRYMjAhCgE7d698dRhkdSeVy">treasury</AddressLink></p>
+        <p>Updates every 24h.</p>
       </Card>
       <Card title="Change Summary">
         <ChangeSummary

@@ -37,6 +37,7 @@ const Contracts = () => {
       </Card>
       <Card title="Description">
         <p>Number of unique contract addresses by minimum balance.</p>
+        <p>Updates every 24h.</p>
       </Card>
       <Card title="Summary">
         <ChangeSummary

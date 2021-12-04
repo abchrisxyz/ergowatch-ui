@@ -24,6 +24,7 @@ const Age = () => {
       </Card>
       <Card title="Description">
         <p>Mean supply age represents the average time since last change of address accross all circulating supply.</p>
+        <p>Updates every 24h.</p>
       </Card>
     </MetricTemplate>
   )
