@@ -38,7 +38,7 @@ const Distribution = () => {
       </Card>
       <Card title="Description">
         <p>ERG supply in top <i>x</i> wallet (P2PK) addresses.</p>
-        <p>Excludes known exchange addresses. See <a href="/metrics/cexs">Exchanges</a> for details.</p>
+        <p>Excludes <b>known</b> exchange addresses. See <a href="/metrics/cexs">Exchanges</a> for details.</p>
         <p>Updates every 24 hours.</p>
       </Card>
       <Card title="Change Summary">

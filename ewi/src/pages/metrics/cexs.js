@@ -41,7 +41,7 @@ const Cexs = () => {
       <Card title="Description">
         <p>ERG supply on <b>known</b>, <b>main</b> exchange addresses.</p>
         <p>
-          Significant jumps are likely the result of untracked exchange addresses and do not necessarily represent actual flow to/from exchanges.<br />
+          Significant jumps are likely the result of untracked exchange addresses and do not necessarily represent actual flow to/from exchanges at that point in time.<br />
           Data subject to change as more CEX addresses get tracked.
         </p>
         <p>Updates every 24h.</p>
@@ -67,7 +67,7 @@ const Cexs = () => {
           units={relative ? "%" : ""}
         />
       </Card>
-      <Card title="Known Addresses">
+      <Card title="Tracked Addresses">
         <ExchangeAddresses />
       </Card>
     </MetricTemplate>
