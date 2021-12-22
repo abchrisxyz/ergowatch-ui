@@ -20,7 +20,7 @@ const Home = () => {
       <div className="tmp-footer">
         <a href="https://ergoplatform.org/en/">Ergo Platform</a>
         -
-        <a href="hhttps://explorer.ergoplatform.com/en/">Ergo Explorer</a>
+        <a href="https://explorer.ergoplatform.com/en/">Ergo Explorer</a>
         -
         <a href="https://github.com/abchrisxyz/ergowatch">Github</a>
       </div>
