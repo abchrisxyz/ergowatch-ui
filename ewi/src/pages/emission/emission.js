@@ -10,6 +10,7 @@ import './emission.css';
 
 import { fixedRate, fixedRatePeriod, epochLength, oneEpochReduction } from './constants';
 import { rateSeries, emissionSeries } from './series';
+import SoftFork from './softfork';
 
 function blocksToDuration(blocks) {
   const secs = blocks * 120;
@@ -144,6 +145,9 @@ const Emission = () => {
       </div>
       <Card title="Emission Curve">
         <EmissionChart currentHeight={height} rate={rate} />
+      </Card>
+      <Card title="Proposed Soft Fork - EIP-0027">
+        <SoftFork currentHeight={height} />
       </Card>
     </main>
   )
