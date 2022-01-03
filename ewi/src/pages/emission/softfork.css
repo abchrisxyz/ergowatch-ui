@@ -1,0 +1,8 @@
+.chart-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 1em;
+  row-gap: 1em;
+  flex-wrap: wrap;
+}
