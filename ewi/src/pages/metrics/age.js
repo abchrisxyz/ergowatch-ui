@@ -11,7 +11,16 @@ const seriesOptions = [
 const Age = () => {
   const id = "age";
   return (
-    <MetricTemplate id={id} name="Supply Age">
+    < MetricTemplate id={id} name="Supply Age" >
+      <div style={{ maxWidth: "80%", margin: "auto", color: "9F6000", backgroundColor: "#FEEFB3", padding: "22px 12px" }}>
+        {/* <h2 style={{ color: "#9F6000", fontWeight: "bold" }}>Warning</h2> */}
+        <p style={{ color: "#9F6000", fontWeight: "bold" }}>
+          The current mean age calculation is only based on daily transfer volume vs circulating supply.
+          It does not track supply age for individual addresses, and therefore overestimates the impact of repeated transfers on age decrease.<br /><br />
+          The sharp decline pictured below is reflecting Kucoin's internal transfers combined with aforementioned limitation of the mean age calculation.<br />
+          A fix is coming.
+        </p>
+      </div>
       <Card>
         <SeriesChart
           api="/metrics/age/series"
@@ -26,7 +35,7 @@ const Age = () => {
         <p>Mean supply age represents the average time since last change of address across all circulating supply.</p>
         <p>Updates every 24h.</p>
       </Card>
-    </MetricTemplate>
+    </MetricTemplate >
   )
 }
 
