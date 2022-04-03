@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="ew.svg"
+   inkscape:export-filename="C:\Users\ThiangeC\Sync\watcher\logo\test2.png"
+   inkscape:export-xdpi="125.05"
+   inkscape:export-ydpi="125.05"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="8.3755251"
+     inkscape:cx="19.759955"
+     inkscape:cy="37.132"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     units="px" />
+  <defs
+     id="defs2">
+    <style
+       type="text/css"
+       id="style55"><![CDATA[
+    .fil1 {fill:black}
+    .fil0 {fill:black;fill-rule:nonzero}
+   ]]></style>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <g
+       style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+       id="g76"
+       transform="matrix(0,-0.01173499,0.01173499,0,-0.00184213,12.751594)"
+       inkscape:export-filename="C:\Users\ThiangeC\Sync\watcher\logo\nb512png"
+       inkscape:export-xdpi="125.05"
+       inkscape:export-ydpi="125.05">
+      <g
+         id="Layer_x0020_1"
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         style="display:inline">
+        <metadata
+           id="CorelCorpID_0Corel-Layer" />
+        <g
+           id="_1841713302352"
+           inkscape:export-filename="C:\Users\ThiangeC\Sync\watcher\logo\buffered-512.png"
+           inkscape:export-xdpi="8.3148699"
+           inkscape:export-ydpi="8.3148699">
+          <path
+             class="fil0"
+             d="m 551.01269,1081.265 c -2.1,0 -4.26,-0.21 -6.39,-0.63 -2.1,-0.4 -4.18,-1.01 -6.18,-1.81 l -359.57,-144.34998 c -4.16,-1.67 -7.91,-4.13 -11.04,-7.21 -3.13,-3.06 -5.66,-6.74 -7.39,-10.87 L 8.2326892,560.06502 c -0.87,-2.05 -1.54,-4.17 -1.99,-6.33 -0.45,-2.14 -0.69,-4.35 -0.71,-6.58 l -0.02,-0.39 c 0.02,-2.18 0.23,-4.33 0.64,-6.41 0.41,-2.09 1.02,-4.16 1.83,-6.17 l 144.3400008,-359.54 c 1.67,-4.17 4.13,-7.92 7.21,-11.06 3.06,-3.12 6.75,-5.66 10.87,-7.39 l 356.33,-152.1900049 c 2.05,-0.88 4.17,-1.54 6.33,-1.99 2.15,-0.45 4.37,-0.69 6.6,-0.71 0.05,-0.03 0.55,-0.03 0.6,0 2.14,0.02 4.24,0.23 6.27,0.63 2.05,0.41 4.08,1.01 6.07,1.8 l 359.56,144.3400049 c 4.16,1.67 7.91,4.13 11.05,7.22 3.12,3.06 5.65,6.74 7.39,10.87 l 152.20001,356.29 c 1.76,4.12 2.67,8.51 2.71,12.92 0.04,4.39 -0.77,8.8 -2.46,12.96 l -144.34001,359.54 c -1.66,4.15 -4.13,7.91 -7.21,11.05 -3.06,3.13 -6.74,5.66 -10.87,7.4 l -356.29,152.18998 c -2.13,0.91 -4.31,1.6 -6.5,2.04 -2.3,0.48 -4.59,0.71 -6.83,0.71 z m -313.83,-224.76998 313.15,125.69 310.32,-132.52 125.74,-313.15 -132.52,-310.32 -313.16,-125.74 -310.41,132.57 -125.7,313.14 z"
+             id="path60" />
+          <polygon
+             class="fil1"
+             points="365.94,392.53 365.94,304.01 714.73,304.01 714.73,401.12 510.17,401.12 637,533.94 505.72,678.52 714.73,678.52 714.73,775.64 365.28,775.64 365.28,687.36 502.79,535.14 "
+             id="polygon62" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
