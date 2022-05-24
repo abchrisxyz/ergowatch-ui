@@ -17,41 +17,41 @@ function reserveRate(emissionRate) {
 function emissionAt(height) {
 
   const step = oneEpochReduction;
-  const softForkHeight = 699393;
+  const softForkHeight = 777217;
 
   // At current height
   const completedEpochs = Math.floor(Math.max(0, height - fixedRatePeriod) / epochLength)
   const currentEpoch = height < fixedRatePeriod ? 0 : completedEpochs + 1
   const blocksInCurrentEpoch = height < fixedRatePeriod ? 0 : (height - fixedRatePeriod) % epochLength + 1
   const currentRate = Math.max(0, fixedRate - currentEpoch * step)
-  
+
   // Original emission components
   const fixedPeriodCS = Math.min(fixedRatePeriod - 1, height) * fixedRate
   const completedEpochsCS = [...Array(completedEpochs).keys()]
-    .map(i => epochLength *  emissionRateFromEpoch(i + 1))
+    .map(i => epochLength * emissionRateFromEpoch(i + 1))
     .reduce((acc, erg) => acc + erg, 0);
   const currentEpochCS = blocksInCurrentEpoch * currentRate
 
   // Reserved to re-emission contract - i.e. what goes into the contract
   let reserved = 0
   if (height >= softForkHeight) {
-    // Soft fork kicks somewhere halfway in 3rd epoch, when emission rate is 66 ERG/block.
-    const last_block_at_66 = 719999;
-    const blocks = Math.min(height - softForkHeight + 1 , last_block_at_66 - softForkHeight + 1)
+    // Soft fork kicks somewhere halfway in 4th epoch, when emission rate is 63 ERG/block.
+    const last_block_at_63 = 784799;
+    const blocks = Math.min(height - softForkHeight + 1, last_block_at_63 - softForkHeight + 1)
     reserved += 12 * blocks;
 
     // Completed epochs
-    [...Array(completedEpochs).keys()].forEach( (i) => {
+    [...Array(completedEpochs).keys()].forEach((i) => {
       const epoch = i + 1
-      if (epoch > 3) {
+      if (epoch > 4) {
         reserved += reserveRate(emissionRateFromEpoch(epoch)) * epochLength;
       }
     });
-    
 
-    // Current epoch (if in 3rd, then already handled above)
-    if (currentEpoch > 3) {
-      reserved+= blocksInCurrentEpoch * reserveRate(currentRate);
+
+    // Current epoch (if in 4th, then already handled above)
+    if (currentEpoch > 4) {
+      reserved += blocksInCurrentEpoch * reserveRate(currentRate);
     }
   }
 
@@ -62,7 +62,7 @@ function emissionAt(height) {
 
   // Original circulating supply
   const originalCS = fixedPeriodCS + completedEpochsCS + currentEpochCS;
-  
+
   // New circulating supply
   const modifiedCS = originalCS - reserved;
 
@@ -79,6 +79,7 @@ const heights = [
   655200,
   719999,
   720000,
+  777217,
   784799,
   784800,
   849599,
