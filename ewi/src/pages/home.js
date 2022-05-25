@@ -16,6 +16,7 @@ const Home = () => {
         <a className="item" href="/metrics"><h2>Metrics</h2></a>
         <a className="item" href="/oracle-pools"><h2>Oracle Pools</h2></a>
         <a className="item" href="/sigmausd"><h2>SigmaUSD</h2></a>
+        <a className="item" href="/api"><h2>API</h2></a>
       </div>
       <div className="tmp-footer">
         <a href="https://ergoplatform.org/en/">Ergo Platform</a>

@@ -22,6 +22,7 @@ import UTXOs from './pages/metrics/utxos';
 import OraclePools from './pages/oracle-pools';
 import OraclePool from './pages/oracle-pool';
 import SigmaUSD from './pages/sigmausd';
+import API from './pages/api';
 import { API_ROOT } from './config';
 
 
@@ -113,6 +114,9 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <Home />
+            </Route>
+            <Route path="/api" exact>
+              <API />
             </Route>
             <Route path="/metrics" exact>
               <Metrics />
