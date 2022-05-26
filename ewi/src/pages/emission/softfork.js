@@ -115,6 +115,8 @@ const SoftFork = ({ currentHeight }) => {
   // 'height' or 'time'
   const [xScale, setXScale] = useState('height');
 
+  if (!currentHeight) return ""
+
   return (
     <div>
       <div className="chart-options">

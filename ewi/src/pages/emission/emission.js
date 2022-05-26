@@ -75,6 +75,17 @@ const Emission = () => {
       .catch(err => console.error(err));
   }, [])
 
+  if (!height) return (
+    <main>
+      <h1>Emission</h1>
+      <BreadCrumbs>
+        <Link to="/">Home</Link>
+        <Link to="/emission">Emission</Link>
+      </BreadCrumbs>
+      Loading...
+    </main>
+  );
+
   const epoch = Math.trunc((height - fixedRatePeriod) / epochLength) + 1;
   // const rate = fixedRate - epoch * oneEpochReduction;
   const blocksRemaining = epochLength - (height - fixedRatePeriod) % epochLength
