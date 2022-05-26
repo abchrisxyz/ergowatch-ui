@@ -8,7 +8,7 @@
   font-weight: 300;
 }
 
-.chart > .legend {
+.chart>.legend {
   display: flex;
   column-gap: 2em;
   justify-content: center;

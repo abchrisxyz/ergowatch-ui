@@ -66,10 +66,21 @@ function emissionAt(height) {
   // New circulating supply
   const modifiedCS = originalCS - reserved;
 
-  return [originalCS, currentRate, reserved, modifiedCS];
+  const reserveInRate = height < softForkHeight ? 0 : reserveRate(currentRate);
+  // const reserveOutRate = height < 2080800 ? 0 : 3;
+
+  let newRate = currentRate;
+  if (height >= 2080800) {
+    newRate = reserved > 0 ? 3 : 0
+
+  } else if (height >= softForkHeight) {
+    newRate = currentRate - reserveRate(currentRate)
+  }
+
+  return [originalCS, currentRate, reserved, modifiedCS, reserveInRate, newRate];
 }
 
-const heights = [
+const reduction_heights = [
   0,
   525599,
   525600,
@@ -79,7 +90,8 @@ const heights = [
   655200,
   719999,
   720000,
-  777217,
+  777216,
+  777217, // eip27 activation
   784799,
   784800,
   849599,
@@ -126,16 +138,25 @@ const heights = [
   4000000,
   5000000,
   6000000,
-  6958427,
+  6647130,
+  6647131,
+  7000000,
 ]
+
+
+const regular_heights = Array.from({ length: 700 }, (e, i) => i * 10000);
+
+const heights = [...new Set([...reduction_heights, ...regular_heights])];
+heights.sort(function (a, b) { return a - b; });
 
 const data = heights.map(h => emissionAt(h));
 const series = [
   heights,
-  data.map(d => d[0]), // original circulating supply
-  data.map(d => d[1]), // original emission rate
   data.map(d => d[3]), // modified circulating supply
   data.map(d => d[2]), // reserved supply
+  data.map(d => d[5]), // new emission rate
+  data.map(d => d[0]), // original circulating supply
+  // data.map(d => d[5]), // frReserveRate
 ];
 
-export { series }
+export { series, emissionAt }
