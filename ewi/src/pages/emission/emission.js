@@ -114,9 +114,6 @@ const Emission = () => {
       <Card title="Emission Curve">
         <SoftFork currentHeight={height} />
       </Card>
-      {/* <Card title="Initial Emission Curve (pre-EIP27)">
-        <EmissionChart currentHeight={height} rate={rate} />
-      </Card> */}
     </main>
   )
 }
