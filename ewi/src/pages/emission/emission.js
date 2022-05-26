@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, ReferenceLine } from "recharts";
 
 import BreadCrumbs from '../../components/breadcrumbs';
 import Card from '../../components/card';
@@ -9,7 +8,6 @@ import { API_ROOT } from '../../config';
 import './emission.css';
 
 import { fixedRatePeriod, epochLength } from './constants';
-import { rateSeries, emissionSeries } from './series';
 import SoftFork from './softfork';
 import { emissionAt } from './softfork-series';
 
@@ -65,33 +63,6 @@ const Supply = ({ circSupply, RECSupply }) => {
     </StatGroup>
   );
 }
-
-const EmissionChart = ({ currentHeight, rate }) => {
-  if (!currentHeight) return "";
-  const xticks = [0, currentHeight, 2080800]
-  const eticks = [0, 97.74]
-  const rticks = [0, rate, 75]
-  return (
-    <div className="chart">
-      <div className="legend">
-        <div style={{ color: "#35a7ff" }}>Emitted Amount [M]</div>
-        <div style={{ color: "#ff5964" }}>Emission Rate [ERG/block]</div>
-      </div>
-      <ResponsiveContainer width="99%" height={350}>
-        <LineChart margin={{ top: 5, right: -35, left: -14, bottom: 5 }}>
-          <Line yAxisId="left" type="monotone" data={emissionSeries} dataKey="e" dot={false} stroke="#35a7ff" strokeWidth="1" />
-          <Line yAxisId="right" type="monotone" data={rateSeries} dataKey="r" dot={false} stroke="#ff5964" strokeWidth="1" />
-          <YAxis yAxisId="left" stroke="#35a7ff" domain={[0, 97.74]} ticks={eticks} />
-          <YAxis yAxisId="right" orientation="right" stroke="#ff5964" name="Rate" domain={[0, 75]} ticks={rticks} />
-          <ReferenceLine x={currentHeight} yAxisId="left" stroke="black" strokeWidth="1" opacity="0.5" />
-          <CartesianGrid stroke="#ccc" strokeDasharray="2 2" vertical={false} />
-          <XAxis dataKey="h" type="number" domain={['dataMin', 'dataMax']} ticks={xticks} />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  );
-}
-
 
 const Emission = () => {
   var [height, setHeight] = useState(undefined);
