@@ -48,7 +48,7 @@
   justify-content: center;
   background-color: rgb(255 255 255);
   border-radius: 5px;
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .menu a {
@@ -62,11 +62,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 100px 0px;
-  column-gap: 1em;;
+  margin: 50px 0px;
+  column-gap: 1em;
+  ;
 }
 
 .tmp-footer a {
   text-decoration: underline;
   color: var(--text-color);
+}
+
+.tmp-footer.icons {
+  color: black;
+  column-gap: 2em;
 }
