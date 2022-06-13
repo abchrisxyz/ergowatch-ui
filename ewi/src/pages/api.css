@@ -1,6 +1,33 @@
 div.api {
   padding: 1em;
-  max-width: 800px;
+  max-width: 700px;
 }
 
-.api button {}
+.api .buttons {
+  margin-top: 3em;
+  display: flex;
+  column-gap: 3em;
+  justify-content: center;
+}
+
+.api .buttons a {
+  text-decoration: none;
+}
+
+.api .buttons a div {
+  width: 100px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #c4c4c4;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  color: var(--text-color)
+}
+
+.api .buttons a div:hover {
+  background-color: #c4c4c462;
+  ;
+}

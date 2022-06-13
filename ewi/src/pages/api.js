@@ -9,10 +9,15 @@ const API = () => {
       <h1>API</h1>
       <BreadCrumbs>
         <Link to="/">Home</Link>
-        <Link to="/api">API</Link>
+        <Link to="/apis">API</Link>
       </BreadCrumbs>
       <div className="api">
-        <h2>
+        <p>
+          This API is built on top of a new backend under active development.
+          The data currently shown on ergo.watch uses an older backend and API but will
+          migrate to this API once enough features are supported.
+        </p>
+        <h2 style={{ marginTop: "2em" }}>
           Terms of service
         </h2>
         <div>
@@ -23,7 +28,7 @@ const API = () => {
             If foreseeing heavy usage, consider running your own instance. See github for instructions.
           </p>
           <p>
-            Feel to get in touch if you need help or want to discuss other arrangements.
+            Feel free to get in touch if you need help or want to discuss other arrangements.
           </p>
         </div>
         <h2 style={{ marginTop: "2em" }}>
@@ -31,14 +36,19 @@ const API = () => {
         </h2>
         <div>
           <p>
-            <b>Note:</b><br />
-            This API is built on top of a new backend under active development.
-            The website uses an older backend and API. It will be upgraded once the
-            new backend supports enough features to replace the current one.
+            Documentation is available in Swagger or Redoc format:
           </p>
-          <div>
-            <button href="https://ergo.watch/api/v0/docs">Swagger</a>
-            <a href="https://ergo.watch/api/v0/redoc">Redoc</a>
+          <div className="buttons">
+            <a href="https://ergo.watch/api/v0/docs">
+              <div className="button">
+                Swagger
+              </div>
+            </a>
+            <a href="https://ergo.watch/api/v0/redoc">
+              <div className="button">
+                Redoc
+              </div>
+            </a>
           </div>
         </div>
       </div>

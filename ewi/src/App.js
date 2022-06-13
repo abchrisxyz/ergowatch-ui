@@ -115,7 +115,7 @@ function App() {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/api" exact>
+            <Route path="/apis" exact>
               <API />
             </Route>
             <Route path="/metrics" exact>
