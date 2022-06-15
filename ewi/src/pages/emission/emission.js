@@ -26,7 +26,7 @@ const Settings = () => {
       <Stat label="Fixed-rate period" value={fixedRatePeriod} blocks />
       <Stat label="Reduction rate" value="3 ERG / epoch" />
       <Stat label="Epoch length" value="64800 blocks" />
-      <Stat label={<span><a href="https://github.com/ergoplatform/eips/blob/eip27/eip-0027.md">EIP-27</a> activation height</span>} value="777217" />
+      <Stat label={<span><a href="https://github.com/ergoplatform/eips/blob/master/eip-0027.md">EIP-27</a> activation height</span>} value="777217" />
     </StatGroup>
   );
 }
